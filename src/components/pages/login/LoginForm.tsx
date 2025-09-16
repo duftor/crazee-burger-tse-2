@@ -8,19 +8,23 @@ import Button from "@/components/reusable-ui/Button"
 import { theme } from "@/theme/theme"
 import { authenticateUser } from "@/api/user"
 import Welcome from "./Welcome"
+import { FaSpinner } from "react-icons/fa"
 
 export default function LoginForm() {
 	// state
 	const [username, setUsername] = useState<string>("")
+	const [isLoading, setIsLoading] = useState(false)
 	const navigate = useNavigate()
 
 	// comportements
 	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
+		setIsLoading(true)
 
 		const userReceived = await authenticateUser(username)
 
 		setUsername("")
+		setIsLoading(false)
 		navigate(`order/${userReceived.username}`)
 	}
 
@@ -43,7 +47,11 @@ export default function LoginForm() {
 					version="normal"
 				/>
 
-				<Button label={"Accéder à mon espace"} Icon={<IoChevronForward />} />
+				<Button
+					disabled={isLoading}
+					label={isLoading ? "" : "Accéder à mon espace"}
+					Icon={isLoading ? <FaSpinner /> : <IoChevronForward />}
+				/>
 			</div>
 		</LoginFormStyled>
 	)
