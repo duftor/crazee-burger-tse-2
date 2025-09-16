@@ -12,94 +12,88 @@ import { useParams } from "react-router-dom"
 import { MenuProduct } from "@/types/Product"
 
 export default function BasketProducts() {
-  const {
-    basket,
-    isModeAdmin,
-    handleDeleteBasketProduct,
-    menu,
-    handleProductSelected,
-    productSelected,
-  } = useOrderContext()
+	const { basket, isModeAdmin, handleDeleteBasketProduct, menu, handleProductSelected, productSelected } =
+		useOrderContext()
 
-  const { username } = useParams()
+	const { username } = useParams()
 
-  const handleOnDelete = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) => {
-    event.stopPropagation()
-    username && handleDeleteBasketProduct(id, username)
-  }
+	const handleOnDelete = (event: React.MouseEvent<HTMLDivElement, MouseEvent>, id: string) => {
+		event.stopPropagation()
+		username && handleDeleteBasketProduct(id, username)
+	}
 
-  const getPrice = (menuProduct: MenuProduct) => {
-    return convertStringToBoolean(menuProduct.isAvailable)
-      ? formatPrice(menuProduct.price)
-      : BASKET_MESSAGE.NOT_AVAILABLE
-  }
+	const getPrice = (menuProduct: MenuProduct) => {
+		return convertStringToBoolean(menuProduct.isAvailable)
+			? formatPrice(menuProduct.price)
+			: BASKET_MESSAGE.NOT_AVAILABLE
+	}
 
-  return (
-    <TransitionGroup component={BasketProductsStyled} className={"transition-group"}>
-      <>
-        {basket.map((basketProduct) => {
-          if (menu === undefined) return
-          const menuProduct = findObjectById(basketProduct.id, menu)
-          if (!menuProduct) return
-          return (
-            <CSSTransition
-              appear={true}
-              classNames={"animation-basket"}
-              key={basketProduct.id}
-              timeout={300}
-            >
-              <div className="card-container">
-                <BasketCard
-                  {...menuProduct}
-                  imageSource={menuProduct.imageSource ? menuProduct.imageSource : IMAGE_COMING_SOON}
-                  quantity={basketProduct.quantity}
-                  onDelete={(event) => handleOnDelete(event, basketProduct.id)}
-                  isClickable={isModeAdmin}
-                  onClick={() => handleProductSelected(basketProduct.id)}
-                  isSelected={checkIfProductIsClicked(basketProduct.id, productSelected.id)}
-                  className={"card"}
-                  price={getPrice(menuProduct)}
-                  isPublicised={convertStringToBoolean(menuProduct.isPublicised)}
-                />
-              </div>
-            </CSSTransition>
-          )
-        })}
-      </>
-    </TransitionGroup>
-  )
+	return (
+		<TransitionGroup component={BasketProductsStyled} className="transition-group">
+			{basket
+				.map((basketProduct) => {
+					if (menu === undefined) return null
+					const menuProduct = findObjectById(basketProduct.id, menu)
+					if (!menuProduct) return null
+
+					return (
+						<CSSTransition
+							appear={true}
+							classNames={"animation-basket"}
+							key={basketProduct.id}
+							timeout={300}>
+							<div className="card-container">
+								<BasketCard
+									{...menuProduct}
+									imageSource={menuProduct.imageSource || IMAGE_COMING_SOON}
+									quantity={basketProduct.quantity}
+									onDelete={(event) => handleOnDelete(event, basketProduct.id)}
+									isClickable={isModeAdmin}
+									onClick={() => handleProductSelected(basketProduct.id)}
+									isSelected={checkIfProductIsClicked(basketProduct.id, productSelected.id)}
+									className={"card"}
+									price={getPrice(menuProduct)}
+									isPublicised={convertStringToBoolean(menuProduct.isPublicised)}
+								/>
+							</div>
+						</CSSTransition>
+					)
+				})
+				.filter((el) => el !== null)}
+		</TransitionGroup>
+	)
 }
 
 const BasketProductsStyled = styled.div`
-  /* border: 1px solid red; */
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow-y: scroll;
+	/* border: 1px solid red; */
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	overflow-y: scroll;
 
-  .card-container {
-    /* border: 1px solid blue; */
-    margin: 10px 16px;
-    height: 86px;
-    box-sizing: border-box;
-    position: relative;
-    :first-child {
-      margin-top: 20px;
-      /* border: 1px solid red; */
-    }
-    :last-child {
-      margin-bottom: 20px;
-    }
+	.card-container {
+		/* border: 1px solid blue; */
+		margin: 10px 16px;
+		height: 86px;
+		box-sizing: border-box;
+		position: relative;
+		:first-child {
+			margin-top: 20px;
+			/* border: 1px solid red; */
+		}
+		:last-child {
+			margin-bottom: 20px;
+		}
 
-    .badge-new {
-      position: absolute;
-      z-index: 1;
-      bottom: 10%;
-      left: 21%;
-      transform: translateY(-21%);
-      transform: translateX(-5%);
-    }
-  }
+		.badge-new {
+			position: absolute;
+			z-index: 1;
+			bottom: 10%;
+			left: 21%;
+			transform: translateY(-21%);
+			transform: translateX(-5%);
+		}
+	}
 
-  ${basketAnimation}
+	${basketAnimation}
 `
