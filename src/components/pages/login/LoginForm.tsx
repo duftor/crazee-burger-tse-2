@@ -73,8 +73,8 @@ export default function LoginForm() {
 					Icon={<BsPersonCircle />}
 					className="input-login"
 					version="normal"
+					error={error}
 				/>
-				{error && error}
 				<Button isLoading={isLoading} label={"Accéder à mon espace"} Icon={<IoChevronForward />} />
 			</div>
 		</LoginFormStyled>
