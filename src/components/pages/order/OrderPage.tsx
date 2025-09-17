@@ -11,14 +11,33 @@ import { ShortcutsOverlay } from "./ShortcutsOverlay"
 export default function OrderPage() {
 	// state
 	const { username } = useParams()
-	const { setMenu, setBasket } = useOrderContext()
+	const { setMenu, setBasket, setIsModeAdmin, setIsCollapsed } = useOrderContext()
 
-	// 1e possibilité : vérification via une condition dans le useEffect()
-	// 2e possibilité : non-null assertion operator : "!"
-	// 3e possibilité : fall-back value (valeur de secours), nullish coalescing (opérateur de coalescence des nuls)
+	const shortcuts: Record<string, () => void> = {
+		i: () => setIsModeAdmin((prev) => !prev),
+		j: () => setIsCollapsed((prev) => !prev),
+	}
 
 	useEffect(() => {
 		if (username) initialiseUserSession(username, setMenu, setBasket)
+	}, [])
+
+	useEffect(() => {
+		function handleKeyDown(e: KeyboardEvent) {
+			const cmdOrCtrlKey = e.metaKey || e.ctrlKey
+
+			if (cmdOrCtrlKey) {
+				const action = shortcuts[e.key.toLowerCase()]
+
+				if (action) {
+					e.preventDefault()
+					action()
+				}
+			}
+		}
+
+		window.addEventListener("keydown", handleKeyDown)
+		return () => window.removeEventListener("keydown", handleKeyDown)
 	}, [])
 
 	//affichage (render)
