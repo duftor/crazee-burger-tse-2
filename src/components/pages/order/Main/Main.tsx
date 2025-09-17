@@ -1,13 +1,13 @@
 import styled from "styled-components"
 import { theme } from "@/theme/theme"
-import MainRightSide from "./MainProducts/MainProducts"
+import MainProducts from "./MainProducts/MainProducts"
 import Basket from "./Basket/Basket"
 
 export default function Main() {
 	return (
 		<MainStyled>
 			<Basket />
-			<MainRightSide />
+			<MainProducts />
 		</MainStyled>
 	)
 }
