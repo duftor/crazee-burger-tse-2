@@ -14,12 +14,12 @@ const USERNAME_MIN_LENGTH = 2
 const USERNAME_MAX_LENGTH = 20
 const USERNAME_REGEX = /^[a-zA-ZÀ-ÖØ-öø-ÿ-]+$/
 
-enum UsernameError {
-	REQUIRED = "Veuillez entrer un prénom",
-	TOO_SHORT = `Le prénom doit contenir au moins ${USERNAME_MIN_LENGTH} caractères`,
-	TOO_LONG = `Le prénom ne peut pas dépasser ${USERNAME_MAX_LENGTH} caractères`,
-	INVALID_FORMAT = "Le prénom ne doit contenir que des lettres ou -",
-}
+const UsernameError = {
+	REQUIRED: "Veuillez entrer un prénom",
+	TOO_SHORT: `Le prénom doit contenir au moins ${USERNAME_MIN_LENGTH} caractères`,
+	TOO_LONG: `Le prénom ne peut pas dépasser ${USERNAME_MAX_LENGTH} caractères`,
+	INVALID_FORMAT: "Le prénom ne doit contenir que des lettres ou -",
+} as const
 
 const usernameSchema = z
 	.string()
