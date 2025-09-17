@@ -1,14 +1,21 @@
+import { useOrderContext } from "@/context/OrderContext"
 import { theme } from "@/theme/theme"
 import styled from "styled-components"
 
 export function ShortcutsOverlay() {
+	const { isShortcutsOverlayVisible, hideShortcutsOverlay, isModeAdmin } = useOrderContext()
+
+	if (!isShortcutsOverlayVisible || !isModeAdmin) return
+
 	return (
 		<ShortcutsOverlayStyled>
 			<div className="shortcuts-wrapper">
 				<div className="bold">💡 Pour aller plus vite :</div>
 				<div>⌘ + i : Toggle "mode" admin</div>
 				<div>⌘ + j : Toggle "panel" admin</div>
-				<button className="button">Ne plus afficher</button>
+				<button className="button" onClick={hideShortcutsOverlay}>
+					Ne plus afficher
+				</button>
 			</div>
 		</ShortcutsOverlayStyled>
 	)
