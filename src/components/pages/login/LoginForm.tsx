@@ -8,7 +8,7 @@ import Button from "@/components/reusable-ui/Button"
 import { theme } from "@/theme/theme"
 import { authenticateUser } from "@/api/user"
 import Welcome from "./Welcome"
-import { FaSpinner } from "react-icons/fa"
+import Spinner from "@/components/reusable-ui/Spinner"
 
 export default function LoginForm() {
 	// state
@@ -50,7 +50,7 @@ export default function LoginForm() {
 				<Button
 					disabled={isLoading}
 					label={isLoading ? "" : "Accéder à mon espace"}
-					Icon={isLoading ? <FaSpinner /> : <IoChevronForward />}
+					Icon={isLoading ? <Spinner /> : <IoChevronForward />}
 				/>
 			</div>
 		</LoginFormStyled>
