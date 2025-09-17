@@ -1,18 +1,21 @@
 import styled from "styled-components"
 import Logo from "@/components/reusable-ui/Logo"
 import LoginForm from "./LoginForm"
+import Footer from "@/components/reusable-ui/Footer"
 
 export default function LoginPage() {
 	return (
 		<LoginPageStyled>
 			<Logo className={"logo-login-page"} />
 			<LoginForm />
+			<Footer />
 		</LoginPageStyled>
 	)
 }
 
 const LoginPageStyled = styled.div`
 	height: 100vh;
+	width: 50vw;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -20,7 +23,7 @@ const LoginPageStyled = styled.div`
 
 	::before {
 		content: "";
-		background: url("/images/burger-right.webp") rgba(0, 0, 0, 0.7);
+		background: url("/images/burger-right.webp") rgba(0, 0, 0, 30%);
 		background-size: cover;
 		background-position: center;
 		background-blend-mode: darken;
