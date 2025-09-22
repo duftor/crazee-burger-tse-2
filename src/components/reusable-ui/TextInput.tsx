@@ -1,6 +1,7 @@
 import React, { ComponentPropsWithRef } from "react"
 import styled, { css } from "styled-components"
 import { theme } from "@/theme/theme"
+import ErrorMessage from "./ErrorMessage"
 
 type TextInputVersion = "normal" | "minimalist"
 
@@ -26,7 +27,7 @@ const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
 					<div className="icon">{Icon && Icon}</div>
 					<input ref={ref} onChange={onChange} type="text" {...extraProps} />
 				</div>
-				{error && <span className="error-message">{error}</span>}
+				{error && <ErrorMessage error={error} />}
 			</TextInputStyled>
 		)
 	}
@@ -68,11 +69,6 @@ const TextInputStyled = styled.div<TextInputStyledProps>`
 		&::placeholder {
 			color: ${theme.colors.greyMedium};
 		}
-	}
-
-	.error-message {
-		color: ${theme.colors.red};
-		font-family: ${theme.fonts.family.openSans};
 	}
 `
 
