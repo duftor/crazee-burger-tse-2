@@ -12,16 +12,20 @@ import Welcome from "./Welcome"
 export default function LoginForm() {
 	// state
 	const [username, setUsername] = useState<string>("")
+	const [isLoading, setIsLoading] = useState(false)
 	const navigate = useNavigate()
 
 	// comportements
 	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault()
+		setIsLoading(true)
 
 		const userReceived = await authenticateUser(username)
 
-		setUsername("")
-		navigate(`order/${userReceived.username}`)
+		setTimeout(() => {
+			setUsername("")
+			navigate(`order/${userReceived.username}`)
+		}, 2000)
 	}
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,7 +47,7 @@ export default function LoginForm() {
 					version="normal"
 				/>
 
-				<Button label={"Accéder à mon espace"} Icon={<IoChevronForward />} />
+				<Button isLoading={isLoading} label={"Accéder à mon espace"} Icon={<IoChevronForward />} />
 			</div>
 		</LoginFormStyled>
 	)
