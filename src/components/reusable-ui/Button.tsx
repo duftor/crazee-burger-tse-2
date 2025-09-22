@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components"
 import { theme } from "../../theme/theme"
 import { ComponentProps } from "react"
+import Loader from "./Loader"
 
 type ButtonVersion = "normal" | "success"
 
@@ -8,13 +9,20 @@ type ButtonProps = {
 	label: string
 	Icon?: JSX.Element
 	version?: ButtonVersion
+	isLoading?: boolean
 } & ComponentProps<"button">
 
-export default function Button({ label, Icon, className, version = "normal", onClick, disabled }: ButtonProps) {
+export default function Button({ label, Icon, className, version = "normal", onClick, isLoading }: ButtonProps) {
 	return (
-		<ButtonStyled className={className} version={version} onClick={onClick} disabled={disabled}>
-			<span>{label}</span>
-			<div className="icon">{Icon && Icon}</div>
+		<ButtonStyled className={className} version={version} onClick={onClick} disabled={isLoading}>
+			{isLoading ? (
+				<Loader />
+			) : (
+				<>
+					<span>{label}</span>
+					<div className="icon">{Icon && Icon}</div>
+				</>
+			)}
 		</ButtonStyled>
 	)
 }
@@ -57,7 +65,7 @@ const extraStyleNormal = css`
 	}
 
 	&:disabled {
-		opacity: 50%;
+		opacity: 100%;
 		cursor: not-allowed;
 		z-index: 2;
 		background-color: ${theme.colors.primary};

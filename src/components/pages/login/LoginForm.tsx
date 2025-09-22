@@ -8,7 +8,6 @@ import Button from "@/components/reusable-ui/Button"
 import { theme } from "@/theme/theme"
 import { authenticateUser } from "@/api/user"
 import Welcome from "./Welcome"
-import Spinner from "@/components/reusable-ui/Spinner"
 
 export default function LoginForm() {
 	// state
@@ -23,9 +22,10 @@ export default function LoginForm() {
 
 		const userReceived = await authenticateUser(username)
 
-		setUsername("")
-		setIsLoading(false)
-		navigate(`order/${userReceived.username}`)
+		setTimeout(() => {
+			setUsername("")
+			navigate(`order/${userReceived.username}`)
+		}, 2000)
 	}
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,11 +47,7 @@ export default function LoginForm() {
 					version="normal"
 				/>
 
-				<Button
-					disabled={isLoading}
-					label={isLoading ? "" : "Accéder à mon espace"}
-					Icon={isLoading ? <Spinner /> : <IoChevronForward />}
-				/>
+				<Button isLoading={isLoading} label={"Accéder à mon espace"} Icon={<IoChevronForward />} />
 			</div>
 		</LoginFormStyled>
 	)
