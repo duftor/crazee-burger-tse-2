@@ -1,16 +1,16 @@
 import { theme } from "@/theme/theme"
 import styled from "styled-components"
 
-export default function Footer() {
+export default function Copyrights() {
 	return (
-		<FooterStyled>
+		<CopyrightsStyled>
 			<div className="rights-reserved">© 2025 Groovy Burger — Tous droits réservés.</div>
 			<div className="made-by">Made with ❤️ by Victor</div>
-		</FooterStyled>
+		</CopyrightsStyled>
 	)
 }
 
-const FooterStyled = styled.div`
+const CopyrightsStyled = styled.div`
 	position: absolute;
 	bottom: 0;
 	left: 0;

@@ -1,14 +1,14 @@
 import styled from "styled-components"
 import Logo from "@/components/reusable-ui/Logo"
 import LoginForm from "./LoginForm"
-import Footer from "@/components/reusable-ui/Footer"
+import Copyrights from "@/components/reusable-ui/Copyrights"
 
 export default function LoginPage() {
 	return (
 		<LoginPageStyled>
 			<Logo className={"logo-login-page"} />
 			<LoginForm />
-			<Footer />
+			<Copyrights />
 		</LoginPageStyled>
 	)
 }
