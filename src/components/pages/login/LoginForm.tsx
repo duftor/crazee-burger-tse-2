@@ -44,6 +44,7 @@ export default function LoginForm() {
 
 		if (!result.success) {
 			setError(result.error.issues[0]?.message ?? "Erreur inconnue")
+			setIsLoading(false)
 			return
 		}
 
