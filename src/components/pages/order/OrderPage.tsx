@@ -43,10 +43,10 @@ export default function OrderPage() {
 	//affichage (render)
 	return (
 		<OrderPageStyled>
+			<ShortcutsOverlay />
 			<div className="container">
 				<Navbar />
 				<Main />
-				<ShortcutsOverlay />
 			</div>
 		</OrderPageStyled>
 	)
@@ -60,7 +60,6 @@ const OrderPageStyled = styled.div`
 	align-items: center;
 
 	.container {
-		position: relative;
 		background: red;
 		height: 95vh;
 		width: 1400px;

@@ -1,9 +1,15 @@
 import { useOrderContext } from "@/context/OrderContext"
 import { theme } from "@/theme/theme"
+import { MouseEvent } from "react"
 import styled from "styled-components"
 
 export function ShortcutsOverlay() {
 	const { isShortcutsOverlayVisible, hideShortcutsOverlay, isModeAdmin } = useOrderContext()
+
+	const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
+		e.preventDefault()
+		hideShortcutsOverlay()
+	}
 
 	if (!isShortcutsOverlayVisible || !isModeAdmin) return
 
@@ -13,7 +19,7 @@ export function ShortcutsOverlay() {
 				<div className="bold">💡 Pour aller plus vite :</div>
 				<div>⌘ + i : Toggle "mode" admin</div>
 				<div>⌘ + j : Toggle "panel" admin</div>
-				<button className="button" onClick={hideShortcutsOverlay}>
+				<button className="button" onClick={handleClick}>
 					Ne plus afficher
 				</button>
 			</div>
@@ -26,6 +32,7 @@ const ShortcutsOverlayStyled = styled.div`
 	border-radius: ${theme.borderRadius.round};
 
 	position: absolute;
+	z-index: 3;
 	top: 0;
 	left: 0;
 	margin: 20px;
