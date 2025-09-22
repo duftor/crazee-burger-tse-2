@@ -7,6 +7,7 @@ import { useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { useOrderContext } from "@/context/OrderContext"
 import { ShortcutsOverlay } from "./ShortcutsOverlay"
+import { useKeyboardShortucts } from "@/hooks/useKeyboardShortcuts"
 
 export default function OrderPage() {
 	// state
@@ -18,26 +19,10 @@ export default function OrderPage() {
 		j: () => setIsCollapsed((prev) => !prev),
 	}
 
+	useKeyboardShortucts(shortcuts)
+
 	useEffect(() => {
 		if (username) initialiseUserSession(username, setMenu, setBasket)
-	}, [])
-
-	useEffect(() => {
-		function handleKeyDown(e: KeyboardEvent) {
-			const cmdOrCtrlKey = e.metaKey || e.ctrlKey
-
-			if (cmdOrCtrlKey) {
-				const action = shortcuts[e.key.toLowerCase()]
-
-				if (action) {
-					e.preventDefault()
-					action()
-				}
-			}
-		}
-
-		window.addEventListener("keydown", handleKeyDown)
-		return () => window.removeEventListener("keydown", handleKeyDown)
 	}, [])
 
 	//affichage (render)
