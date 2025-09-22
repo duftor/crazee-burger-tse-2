@@ -52,14 +52,13 @@ const ShortcutsOverlayStyled = styled.div`
 			padding: 13px 0px;
 			cursor: pointer;
 
-			&.button:hover {
+			:hover {
 				color: ${theme.colors.primary};
 				border-color: ${theme.colors.primary};
 			}
 
-			&.button:active {
-				color: ${theme.colors.primary_darken};
-				border-color: ${theme.colors.primary_darken};
+			:active {
+				opacity: 50%;
 			}
 		}
 	}
