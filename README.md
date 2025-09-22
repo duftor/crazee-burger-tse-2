@@ -1,4 +1,4 @@
-# Crazee Burger (version Typescript en solo)
+# Groovy Burger (version Typescript en solo)
 
 ## 1. Pour installer le projet
 
