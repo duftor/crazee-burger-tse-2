@@ -1,10 +1,12 @@
 import { useOrderContext } from "@/context/OrderContext"
 import { theme } from "@/theme/theme"
+import { isMac } from "@/utils/window"
 import { MouseEvent } from "react"
 import styled from "styled-components"
 
 export function ShortcutsOverlay() {
 	const { isShortcutsOverlayVisible, hideShortcutsOverlay, isModeAdmin } = useOrderContext()
+	const commandOrCtrlKey = isMac() ? "⌘" : "Ctrl"
 
 	const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
 		e.preventDefault()
@@ -17,8 +19,8 @@ export function ShortcutsOverlay() {
 		<ShortcutsOverlayStyled>
 			<div className="shortcuts-wrapper">
 				<div className="bold">💡 Pour aller plus vite :</div>
-				<div>⌘ + i : Toggle "mode" admin</div>
-				<div>⌘ + j : Toggle "panel" admin</div>
+				<div>{commandOrCtrlKey} + i : Toggle "mode" admin</div>
+				<div>{commandOrCtrlKey} + j : Toggle "panel" admin</div>
 				<button className="button" onClick={handleClick}>
 					Ne plus afficher
 				</button>
