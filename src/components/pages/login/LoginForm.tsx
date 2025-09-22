@@ -63,7 +63,7 @@ export default function LoginForm() {
 
 	// affichage
 	return (
-		<LoginFormStyled action="submit" onSubmit={handleSubmit}>
+		<LoginFormStyled action="submit" onSubmit={handleSubmit} noValidate>
 			<Welcome />
 			<div>
 				<TextInput
@@ -74,6 +74,8 @@ export default function LoginForm() {
 					className="input-login"
 					version="normal"
 					error={error}
+					required
+					aria-required
 				/>
 				<Button isLoading={isLoading} label={"Accéder à mon espace"} Icon={<IoChevronForward />} />
 			</div>
