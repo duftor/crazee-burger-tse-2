@@ -4,7 +4,7 @@ export type Category = {
 	id: string
 	label: string
 	color: Color | ""
-	iconName: IconName
+	iconName: IconName | ""
 	value?: string
 	isActive?: boolean
 }
