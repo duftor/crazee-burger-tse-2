@@ -3,7 +3,7 @@ import { Color } from "@/theme/theme"
 export type Category = {
 	id: string
 	label: string
-	color: Color[keyof Color] | ""
+	color: Color | ""
 	iconName: IconName
 	value?: string
 	isActive?: boolean
