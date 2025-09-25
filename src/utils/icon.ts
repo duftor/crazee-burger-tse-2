@@ -7,32 +7,21 @@ import { GiChocolateBar } from "react-icons/gi"
 import { CiFries } from "react-icons/ci"
 import { BsCupHotFill } from "react-icons/bs"
 import { IoFastFoodOutline } from "react-icons/io5"
+import { IconType } from "react-icons"
+import { IconName } from "@/types/Category"
 
-// nom technique : dictionnaire, mapping JS/TS, lookup table
-// export const ICON_MAP: Record<IconName, IconType> = {
-//     sandwich: FaHamburger,
-//     verre: RiDrinks2Line,
-//     veggies: LuSalad,
-//     dessert: LuCakeSlice,
-//     frites: LuCakeSlice, // même icône pour 2 noms différents
-//     chocolateBar: GiChocolateBar,
-// }
-
-// // nom technique : fonction utiliaire / utils ou "factory".
-// export const getCategoryIcon = (name: IconName): IconType =>
-//     ICON_MAP[name] ?? MdQuestionMark
-
-// ci-dessous, ça marche et ça réuni dans getCategoryIcon() à la fois la fonction utilitaire et le dictionnaire / mapping / lookup table.
-export const getCategoryIcon = (iconName: any): any => {
-  if (iconName === "sandwich") return FaHamburger
-  if (iconName === "verre") return RiDrinks2Line
-  if (iconName === "veggies") return LuSalad
-  if (iconName === "dessert") return LuCakeSlice
-  if (iconName === "frites") return CiFries
-  if (iconName === "chocolateBar") return GiChocolateBar
-  if (iconName === "tasse chaude") return BsCupHotFill
-  if (iconName === "menu") return IoFastFoodOutline
-  if (iconName === "") return null
-  return MdQuestionMark
+const categoryIcons: Record<IconName, IconType> = {
+	sandwich: FaHamburger,
+	verre: RiDrinks2Line,
+	veggies: LuSalad,
+	dessert: LuCakeSlice,
+	frites: CiFries,
+	chocolateBar: GiChocolateBar,
+	"tasse chaude": BsCupHotFill,
+	menu: IoFastFoodOutline,
 }
-// attention, ça retourne nom pas un composant Icon mais la référence au composant Icon ☝️
+
+export function getCategoryIcon(iconName: IconName | "") {
+	if (!iconName) return null
+	return categoryIcons[iconName] ?? MdQuestionMark
+}
