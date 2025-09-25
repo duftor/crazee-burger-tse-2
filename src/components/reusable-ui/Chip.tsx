@@ -7,7 +7,7 @@ import { IconName } from "@/types/Category"
 
 type ChipProps = {
 	label: string
-	iconName: IconName
+	iconName: IconName | ""
 	color: Color | ""
 	className?: string
 	isActive?: boolean
