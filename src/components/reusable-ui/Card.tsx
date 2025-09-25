@@ -90,7 +90,12 @@ export default function Card({
 	)
 }
 
-type CardStyledProps = any
+type CardStyledProps = {
+	isHoverable?: boolean
+	isSelected?: boolean
+	isMenu?: boolean
+	areChipsVisible?: boolean
+}
 
 const CardStyled = styled.div<CardStyledProps>`
 	${({ isHoverable }) => isHoverable && hoverableStyle}
@@ -266,7 +271,7 @@ const hoverableStyle = css`
 	}
 `
 
-const selectedStyle = (isMenu?: any) => css`
+const selectedStyle = (isMenu?: boolean) => css`
 	background: ${isMenu ? theme.colors.purple : theme.colors.primary};
 
 	.primary-button {
