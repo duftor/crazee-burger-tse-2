@@ -1,28 +1,41 @@
-import { BasketProductQuantity, MenuProduct } from "@/types/Product"
 import { getMenu } from "@/api/product"
 import { getLocalStorage } from "@/utils/window"
+import { getCategories } from "@/api/categories"
+import { BasketProductQuantity, Product } from "@/types/Product"
+import { Category } from "@/types/Category"
 
 const intialiseMenu = async (
-  username: string,
-  setMenu: React.Dispatch<React.SetStateAction<MenuProduct[] | undefined>>
+	username: string,
+	setMenu: React.Dispatch<React.SetStateAction<Product[] | undefined>>
 ) => {
-  const menuReceived = await getMenu(username)
-  setMenu(menuReceived)
+	const menuReceived = await getMenu(username)
+	setMenu(menuReceived)
 }
 
 const intialiseBasket = (
-  username: string,
-  setBasket: React.Dispatch<React.SetStateAction<BasketProductQuantity[]>>
+	username: string,
+	setBasket: React.Dispatch<React.SetStateAction<BasketProductQuantity[]>>
 ) => {
-  const basketReceived = getLocalStorage(username) // localStorage est synchrone, pas besoin de "await".
-  if (basketReceived) setBasket(basketReceived as BasketProductQuantity[])
+	const basketReceived = getLocalStorage(username) // localStorage est synchrone, pas besoin de "await".
+	if (basketReceived) setBasket(basketReceived as BasketProductQuantity[])
+}
+
+const intialiseCategories = async (
+	username: string,
+	setCategories: React.Dispatch<React.SetStateAction<Category[]>>
+) => {
+	//@ts-ignore
+	const categoriesReceived = await getCategories(username)
+	setCategories(categoriesReceived as Category[])
 }
 
 export const initialiseUserSession = async (
-  username: string,
-  setMenu: React.Dispatch<React.SetStateAction<MenuProduct[] | undefined>>,
-  setBasket: React.Dispatch<React.SetStateAction<BasketProductQuantity[]>>
+	username: string,
+	setMenu: React.Dispatch<React.SetStateAction<Product[] | undefined>>,
+	setBasket: React.Dispatch<React.SetStateAction<BasketProductQuantity[]>>,
+	setCategories: React.Dispatch<React.SetStateAction<Category[]>>
 ) => {
-  await intialiseMenu(username, setMenu)
-  intialiseBasket(username, setBasket)
+	await intialiseMenu(username, setMenu)
+	await intialiseCategories(username, setCategories)
+	intialiseBasket(username, setBasket)
 }

@@ -12,7 +12,7 @@ import { useKeyboardShortucts } from "@/hooks/useKeyboardShortcuts"
 export default function OrderPage() {
 	// state
 	const { username } = useParams()
-	const { setMenu, setBasket, setIsModeAdmin, setIsCollapsed } = useOrderContext()
+	const { setMenu, setBasket, setIsModeAdmin, setIsCollapsed, setCategories } = useOrderContext()
 
 	const shortcuts: Record<string, () => void> = {
 		i: () => setIsModeAdmin((prev) => !prev),
@@ -22,7 +22,7 @@ export default function OrderPage() {
 	useKeyboardShortucts(shortcuts)
 
 	useEffect(() => {
-		if (username) initialiseUserSession(username, setMenu, setBasket)
+		if (username) initialiseUserSession(username, setMenu, setBasket, setCategories)
 	}, [])
 
 	//affichage (render)
