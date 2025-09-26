@@ -60,7 +60,10 @@ const fonts = {
 		stylish: '"Amatic SC", cursive',
 		openSans: '"Open Sans", sans-serif',
 	},
-}
+} as const
+
+export type FontSize = keyof typeof fonts.size
+
 const gridUnit = 8
 const borderRadius = {
 	subtle: 1,

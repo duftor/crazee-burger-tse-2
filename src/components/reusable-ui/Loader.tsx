@@ -1,9 +1,14 @@
 import styled from "styled-components"
 import { ImSpinner8 } from "react-icons/im"
 import { spin } from "@/theme/animations"
-import { theme } from "@/theme/theme"
+import { Color, FontSize, theme } from "@/theme/theme"
 
-export default function Loader({ variant = "SM", color = theme.colors.greyMedium }: any) {
+type LoaderProps = {
+	variant?: FontSize
+	color?: Color
+}
+
+export default function Loader({ variant = "SM", color = theme.colors.greyMedium }: LoaderProps) {
 	return (
 		<LoaderStyled variant={variant ?? "SM"} color={color}>
 			<ImSpinner8 className="spinner-icon" />
@@ -11,7 +16,11 @@ export default function Loader({ variant = "SM", color = theme.colors.greyMedium
 	)
 }
 
-const LoaderStyled = styled.div<any>`
+type LoaderStyledProps = {
+	variant: FontSize
+	color: Color
+}
+const LoaderStyled = styled.div<LoaderStyledProps>`
 	display: flex;
 	justify-content: center;
 	align-items: center;
