@@ -3,21 +3,23 @@ import { ImSpinner8 } from "react-icons/im"
 import { spin } from "@/theme/animations"
 import { theme } from "@/theme/theme"
 
-export default function Loader() {
+export default function Loader({ variant = "SM", color = theme.colors.greyMedium }: any) {
 	return (
-		<LoaderWrapper>
+		<LoaderStyled variant={variant ?? "SM"} color={color}>
 			<ImSpinner8 className="spinner-icon" />
-		</LoaderWrapper>
+		</LoaderStyled>
 	)
 }
 
-const LoaderWrapper = styled.div`
+const LoaderStyled = styled.div<any>`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	height: 100%;
 
 	.spinner-icon {
-		font-size: ${theme.fonts.size.SM};
+		font-size: ${({ variant }) => theme.fonts.size[variant ?? "SM"]};
 		animation: ${spin} 1s linear infinite;
+		color: ${({ color }) => color || theme.colors.primary};
 	}
 `

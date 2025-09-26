@@ -16,7 +16,7 @@ export default function Button({ label, Icon, className, version = "normal", onC
 	return (
 		<ButtonStyled className={className} version={version} onClick={onClick} disabled={isLoading}>
 			{isLoading ? (
-				<Loader />
+				<Loader color={theme.colors.white} />
 			) : (
 				<>
 					<span>{label}</span>
