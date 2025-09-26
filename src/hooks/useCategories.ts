@@ -85,7 +85,7 @@ export const useCategories = () => {
 	}
 
 	// @ts-ignore
-	const handleEditCategory = (productBeingEdited: Category, username: string) => {
+	const handleEditCategory = (productBeingEdited: Product, username: string) => {
 		// 1. copie du state (deep clone)
 		if (!categories) return
 		const menuCopy = deepClone(categories)

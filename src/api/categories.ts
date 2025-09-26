@@ -9,7 +9,7 @@ export const getCategories = async (idUser: string): Promise<Category[] | undefi
 	const docSnapshot = await getDoc(docRef)
 	if (docSnapshot.exists()) {
 		const { categories } = docSnapshot.data()
-		return categories as Promise<Category[]>
+		return categories as Category[]
 	}
 }
 

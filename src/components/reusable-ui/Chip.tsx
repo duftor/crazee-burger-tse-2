@@ -1,18 +1,15 @@
-import { Color, theme } from "@/theme/theme"
+import { theme } from "@/theme/theme"
 import styled from "styled-components"
 import { getCategoryIcon } from "@/utils/icon"
 import { applyOpacity } from "@/utils/color"
 import { IS_SELECTED_COLOR } from "@/constants/categories"
-import { IconName } from "@/types/Category"
+import { Category } from "@/types/Category"
+import { ComponentPropsWithoutRef } from "react"
 
-type ChipProps = {
-	label: string
-	iconName: IconName | ""
-	color: Color | ""
-	className?: string
-	isActive?: boolean
-	backgroundColor?: string
-}
+type ChipProps = Category &
+	ComponentPropsWithoutRef<"div"> & {
+		backgroundColor?: string
+	}
 
 export const Chip = ({ label, iconName, color, className, isActive, backgroundColor, ...restProps }: ChipProps) => {
 	const defaultBorderColor = color ? applyOpacity(color, 0.3) : "transparent"
@@ -46,6 +43,7 @@ export const Chip = ({ label, iconName, color, className, isActive, backgroundCo
 type ChipStyledProps = {
 	borderColor: string
 	backgroundColor: string
+	color: string
 }
 
 const ChipStyled = styled.div<ChipStyledProps>`

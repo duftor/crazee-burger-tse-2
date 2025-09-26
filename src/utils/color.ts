@@ -21,7 +21,7 @@ export const isHexColor = (color: Color) => {
 	return /^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6})$/.test(color)
 }
 
-export const getBgColorToApply = (data: any, isSelected: any, isFocused: any) => {
+export const getBgColorToApply = <T extends { color: Color }>(data: T, isSelected: boolean, isFocused: boolean) => {
 	let bgColor = "lightgrey"
 	if ("color" in data) {
 		bgColor = isSelected
