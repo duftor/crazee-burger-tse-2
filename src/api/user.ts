@@ -2,16 +2,22 @@ import { doc, getDoc, setDoc } from "firebase/firestore"
 import { db } from "./firebase-config"
 import { User } from "@/types/User"
 import { fakeProducts } from "@/fakeData/fakeProducts"
+import { fakeCategories } from "@/fakeData/fakeCategories"
+
+const NEW_USER_BY_DEFAULT = {
+	products: fakeProducts.LARGE,
+	categories: fakeCategories.LARGE,
+}
 
 export const getUser = async (idUser: string): Promise<User | undefined> => {
-  //const docRef = doc(CHEMIN)
-  const docRef = doc(db, "users", idUser)
+	//const docRef = doc(CHEMIN)
+	const docRef = doc(db, "users", idUser)
 
-  const docSnapshot = await getDoc(docRef)
-  if (docSnapshot.exists()) {
-    const userReceived = docSnapshot.data()
-    return userReceived as User
-  }
+	const docSnapshot = await getDoc(docRef)
+	if (docSnapshot.exists()) {
+		const userReceived = docSnapshot.data()
+		return userReceived as User
+	}
 }
 
 // Quand une fonction retourne une promesse, cette promesse ne peut avoir que 3 valeurs possibles :
@@ -20,25 +26,26 @@ export const getUser = async (idUser: string): Promise<User | undefined> => {
 // 3e cas : résultat négatif de la promesse achevée => résultat négatif (rejected)
 
 export const createUser = async (userId: string): Promise<User> => {
-  // CACHETTE
-  const docRef = doc(db, "users", userId)
+	// CACHETTE
+	const docRef = doc(db, "users", userId)
 
-  // NOURRITURE
-  const newUserToCreate: User = {
-    username: userId,
-    menu: fakeProducts.MEDIUM,
-  }
+	// NOURRITURE
+	const newUserToCreate: User = {
+		username: userId,
+		menu: fakeProducts.LARGE,
+		categories: NEW_USER_BY_DEFAULT.categories,
+	}
 
-  //setDoc(CACHETTE, NOURRITURE)
-  await setDoc(docRef, newUserToCreate)
-  return newUserToCreate
+	//setDoc(CACHETTE, NOURRITURE)
+	await setDoc(docRef, newUserToCreate)
+	return newUserToCreate
 }
 
 export const authenticateUser = async (userId: string): Promise<User> => {
-  const existingUser = await getUser(userId)
+	const existingUser = await getUser(userId)
 
-  if (!existingUser) {
-    return await createUser(userId)
-  }
-  return existingUser
+	if (!existingUser) {
+		return await createUser(userId)
+	}
+	return existingUser
 }

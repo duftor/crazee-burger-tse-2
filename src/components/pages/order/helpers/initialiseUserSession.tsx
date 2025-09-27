@@ -26,7 +26,7 @@ const intialiseCategories = async (
 ) => {
 	//@ts-ignore
 	const categoriesReceived = await getCategories(username)
-	setCategories(categoriesReceived as Category[])
+	if (categoriesReceived) setCategories(categoriesReceived as Category[])
 }
 
 export const initialiseUserSession = async (
