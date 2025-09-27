@@ -62,7 +62,7 @@ const fonts = {
 	},
 } as const
 
-export type FontSize = keyof typeof fonts.size
+export type FontSizeKey = keyof typeof fonts.size
 
 const gridUnit = 8
 const borderRadius = {
