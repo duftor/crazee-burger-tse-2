@@ -5,7 +5,11 @@ export const checkIfProductIsClicked = (idProductInMenu: string, idProductClicke
 	return idProductInMenu === idProductClickedOn
 }
 
-export const getProductsToDisplay = (categoryAll: Category, products: Product[], activeCategory: Category) => {
+export const getProductsToDisplay = (
+	categoryAll: Category,
+	products: Product[],
+	activeCategory: Category | undefined
+) => {
 	const productsToDisplayed = categoryAll.isActive
 		? products
 		: products.filter(({ categories: categoriesFromMenu }) =>
