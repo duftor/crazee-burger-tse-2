@@ -4,20 +4,20 @@ import { spin } from "@/theme/animations"
 import { Color, FontSizeKey, theme } from "@/theme/theme"
 
 type LoaderProps = {
-	variant?: FontSizeKey
+	size?: FontSizeKey
 	color?: Color
 }
 
-export default function Loader({ variant = "SM", color = theme.colors.greyMedium }: LoaderProps) {
+export default function Loader({ size = "SM", color = theme.colors.greyMedium }: LoaderProps) {
 	return (
-		<LoaderStyled variant={variant ?? "SM"} color={color}>
+		<LoaderStyled size={size ?? "SM"} color={color}>
 			<ImSpinner8 className="spinner-icon" />
 		</LoaderStyled>
 	)
 }
 
 type LoaderStyledProps = {
-	variant?: FontSizeKey
+	size?: FontSizeKey
 	color?: Color
 }
 const LoaderStyled = styled.div<LoaderStyledProps>`
@@ -27,7 +27,7 @@ const LoaderStyled = styled.div<LoaderStyledProps>`
 	height: 100%;
 
 	.spinner-icon {
-		font-size: ${({ variant }) => theme.fonts.size[variant ?? "SM"]};
+		font-size: ${({ size }) => theme.fonts.size[size ?? "SM"]};
 		animation: ${spin} 1s linear infinite;
 		color: ${({ color }) => color || theme.colors.primary};
 	}
