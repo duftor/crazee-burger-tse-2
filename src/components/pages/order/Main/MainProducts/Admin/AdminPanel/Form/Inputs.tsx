@@ -6,17 +6,19 @@ import { getInputConfig } from "./inputConfig"
 import { Product } from "@/types/Product"
 import { isMultiSelectInput, isSelectInput, isTextInput } from "@/types/Inputs"
 import { MultiSelect } from "@/components/reusable-ui/MultiSelect"
+import { useOrderContext } from "@/context/OrderContext"
+import { Category } from "@/types/Category"
 
 export type InputsProps = {
 	product: Product
-	// onChange: React.ChangeEventHandler<HTMLInputElement> | React.ChangeEventHandler<HTMLSelectElement>
 	onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLSelectElement>
 	onFocus?: React.FocusEventHandler<HTMLInputElement | HTMLSelectElement>
 	onBlur?: React.FocusEventHandler<HTMLInputElement | HTMLSelectElement>
 }
 
 export const Inputs = React.forwardRef<HTMLInputElement, InputsProps>(({ product, onChange, onFocus, onBlur }, ref) => {
-	const inputTexts = getInputConfig(product)
+	const { categories } = useOrderContext()
+	const inputTexts = getInputConfig(product, categories)
 
 	// affichage
 	return (
@@ -46,7 +48,8 @@ export const Inputs = React.forwardRef<HTMLInputElement, InputsProps>(({ product
 									onBlur={onBlur}
 								/>
 							)
-						else if (isMultiSelectInput(input)) return <MultiSelect />
+						else if (isMultiSelectInput(input))
+							return <MultiSelect<Category> {...input} key={input.id} value={product.categories} />
 						else return null
 					})}
 				</div>

@@ -6,8 +6,11 @@ import { isAvailableOptions, isPublicisedOptions } from "../../../../../../../..
 import { Product } from "@/types/Product"
 import { InputConfig } from "@/types/Inputs"
 import { IoPricetag } from "react-icons/io5"
+import { Category } from "@/types/Category"
 
-export const getInputConfig: (newProduct: Product) => InputConfig[][] = (newProduct) => [
+type GetInputConfigType = (newProduct: Product, categories: Category[]) => InputConfig[][]
+
+export const getInputConfig: GetInputConfigType = (newProduct, categories) => [
 	[
 		{
 			id: crypto.randomUUID(),
@@ -34,8 +37,9 @@ export const getInputConfig: (newProduct: Product) => InputConfig[][] = (newProd
 		{
 			id: crypto.randomUUID(),
 			type: "multiselect" as const,
-			name: "category",
-			// value: newProduct.categories,
+			name: "categories",
+			options: categories,
+			value: newProduct.categories,
 			// Icon: <IoPricetag />,
 		},
 	],

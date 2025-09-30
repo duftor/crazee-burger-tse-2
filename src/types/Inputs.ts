@@ -1,3 +1,5 @@
+import { Category } from "./Category"
+
 export type Option = {
 	optionValue?: string | number | readonly string[]
 	label: string
@@ -24,9 +26,22 @@ export type SelectInputConfig = {
 	className?: string
 }
 
-export type MultiSelectInputConfig = any
+export type BaseOptions = {
+	value: string
+	label: string
+	color?: string
+}
 
-export type InputConfig = TextInputConfig | SelectInputConfig | MultiSelectInputConfig
+export type MultiSelectInputConfig<T extends BaseOptions> = {
+	id: string
+	type: "multiselect"
+	name: string
+	defaultValue?: T[]
+	options: T[]
+}
+
+// Based on Category for now, could be generic in the future if needed
+export type InputConfig = TextInputConfig | SelectInputConfig | MultiSelectInputConfig<Category>
 
 export function isTextInput(input: InputConfig): input is TextInputConfig {
 	return input.type === "text"
@@ -34,6 +49,6 @@ export function isTextInput(input: InputConfig): input is TextInputConfig {
 export function isSelectInput(input: InputConfig): input is SelectInputConfig {
 	return input.type === "select"
 }
-export function isMultiSelectInput(input: InputConfig): input is MultiSelectInputConfig {
+export function isMultiSelectInput(input: InputConfig): input is MultiSelectInputConfig<Category> {
 	return input.type === "multiselect"
 }

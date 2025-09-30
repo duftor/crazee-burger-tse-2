@@ -1,23 +1,20 @@
-import { useOrderContext } from "@/context/OrderContext"
-import Select, { StylesConfig } from "react-select"
+import { BaseOptions } from "@/types/Inputs"
+import Select, { GroupBase, OptionsOrGroups, Props } from "react-select"
 
-export type MultiSelectOptions = {
-	value: string
-	label: string
-	color: string
-}
+type MultiSelectProps<T extends BaseOptions> = {
+	options?: OptionsOrGroups<T, GroupBase<T>>
+	value?: T[]
+} & Props<T, true>
 
-type MultiSelectProps = {}
-
-export const MultiSelect = ({}: MultiSelectProps) => {
-	const { categories } = useOrderContext()
-
+export const MultiSelect = <T extends BaseOptions>({ options, value, ...restProps }: MultiSelectProps<T>) => {
 	return (
 		<Select
-			closeMenuOnSelect={true}
-			defaultValue={[]}
 			isMulti
-			options={categories}
+			value={value}
+			closeMenuOnSelect={false}
+			options={options}
+			noOptionsMessage={() => "Plus d'options"}
+			{...restProps}
 			// styles={colourStyles}
 		/>
 	)
