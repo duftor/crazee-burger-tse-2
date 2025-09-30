@@ -1,15 +1,16 @@
 import { FaHamburger } from "react-icons/fa"
 import { BsFillCameraFill } from "react-icons/bs"
-import { MdOutlineEuro } from "react-icons/md"
 import { FiPackage } from "react-icons/fi"
 import { GoMegaphone } from "react-icons/go"
 import { isAvailableOptions, isPublicisedOptions } from "../../../../../../../../constants/select"
 import { Product } from "@/types/Product"
+import { InputConfig } from "@/types/Inputs"
+import { IoPricetag } from "react-icons/io5"
 
-export const getInputConfig = (newProduct: Product) => [
+export const getInputConfig: (newProduct: Product) => InputConfig[][] = (newProduct) => [
 	[
 		{
-			id: "0",
+			id: crypto.randomUUID(),
 			type: "text" as const,
 			name: "title",
 			value: newProduct.title,
@@ -19,7 +20,7 @@ export const getInputConfig = (newProduct: Product) => [
 			className: "title",
 		},
 		{
-			id: "1",
+			id: crypto.randomUUID(),
 			type: "text" as const,
 			name: "imageSource",
 			value: newProduct.imageSource,
@@ -29,22 +30,18 @@ export const getInputConfig = (newProduct: Product) => [
 			className: "image-source",
 		},
 	],
-
 	[
 		{
-			id: "2",
-			type: "text" as const,
-			name: "price",
-			value: newProduct.price ? newProduct.price : "",
-			placeholder: "Prix",
-			Icon: <MdOutlineEuro />,
-			version: "minimalist",
-			className: "price",
+			id: crypto.randomUUID(),
+			type: "multiselect" as const,
+			name: "category",
+			// value: newProduct.categories,
+			// Icon: <IoPricetag />,
 		},
 	],
 	[
 		{
-			id: "3",
+			id: crypto.randomUUID(),
 			type: "select" as const,
 			name: "isAvailable",
 			value: newProduct.isAvailable.toString(),
@@ -53,7 +50,7 @@ export const getInputConfig = (newProduct: Product) => [
 			className: "is-available",
 		},
 		{
-			id: "4",
+			id: crypto.randomUUID(),
 			type: "select" as const,
 			name: "isPublicised",
 			value: newProduct.isPublicised.toString(),

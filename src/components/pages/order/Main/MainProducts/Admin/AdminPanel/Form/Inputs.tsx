@@ -4,7 +4,8 @@ import SelectInput from "@/components/reusable-ui/SelectInput"
 import styled from "styled-components"
 import { getInputConfig } from "./inputConfig"
 import { Product } from "@/types/Product"
-import { isTextInput } from "@/types/Inputs"
+import { isMultiSelectInput, isSelectInput, isTextInput } from "@/types/Inputs"
+import { MultiSelect } from "@/components/reusable-ui/MultiSelect"
 
 export type InputsProps = {
 	product: Product
@@ -21,28 +22,33 @@ export const Inputs = React.forwardRef<HTMLInputElement, InputsProps>(({ product
 	return (
 		<InputsStyled>
 			{inputTexts.map((inputsRow, rowId) => (
-				<div className="row-inputs" key={rowId}>
-					{inputsRow.map((input) =>
-						isTextInput(input) ? (
-							<TextInput
-								{...input}
-								key={input.id}
-								onChange={onChange}
-								version="minimalist"
-								onFocus={onFocus}
-								onBlur={onBlur}
-								ref={ref && input.name === "title" ? ref : null}
-							/>
-						) : (
-							<SelectInput
-								{...input}
-								key={input.id}
-								onChange={onChange}
-								onFocus={onFocus}
-								onBlur={onBlur}
-							/>
-						)
-					)}
+				<div className="row-inputs" key={"row-" + rowId}>
+					{inputsRow.map((input) => {
+						if (isTextInput(input))
+							return (
+								<TextInput
+									{...input}
+									key={input.id}
+									onChange={onChange}
+									version="minimalist"
+									onFocus={onFocus}
+									onBlur={onBlur}
+									ref={ref && input.name === "title" ? ref : null}
+								/>
+							)
+						else if (isSelectInput(input))
+							return (
+								<SelectInput
+									{...input}
+									key={input.id}
+									onChange={onChange}
+									onFocus={onFocus}
+									onBlur={onBlur}
+								/>
+							)
+						else if (isMultiSelectInput(input)) return <MultiSelect />
+						else return null
+					})}
 				</div>
 			))}
 		</InputsStyled>

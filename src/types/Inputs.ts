@@ -11,7 +11,7 @@ export type TextInputConfig = {
 	placeholder: string
 	Icon: JSX.Element
 	version: string
-	className: string
+	className?: string
 }
 
 export type SelectInputConfig = {
@@ -21,11 +21,19 @@ export type SelectInputConfig = {
 	value: string
 	options: Option[]
 	Icon: JSX.Element
-	className: string
+	className?: string
 }
 
-export type InputConfig = TextInputConfig | SelectInputConfig
+export type MultiSelectInputConfig = any
+
+export type InputConfig = TextInputConfig | SelectInputConfig | MultiSelectInputConfig
 
 export function isTextInput(input: InputConfig): input is TextInputConfig {
 	return input.type === "text"
+}
+export function isSelectInput(input: InputConfig): input is SelectInputConfig {
+	return input.type === "select"
+}
+export function isMultiSelectInput(input: InputConfig): input is MultiSelectInputConfig {
+	return input.type === "multiselect"
 }
