@@ -22,7 +22,8 @@ const colors = {
 	yellow: "#FFC300",
 } as const
 
-export type Color = (typeof colors)[keyof typeof colors]
+type Colors = typeof colors
+export type Color = Colors[keyof Colors]
 
 const spacing = {
 	xxs: "4px",

@@ -20,7 +20,7 @@ type CardProps = {
 	overlapImageSource: string
 	isOverlapImageVisible?: boolean
 	categories?: Category[]
-	oldPrice?: number
+	oldPrice?: string
 }
 
 export default function Card({
