@@ -49,7 +49,14 @@ export const Inputs = React.forwardRef<HTMLInputElement, InputsProps>(({ product
 								/>
 							)
 						else if (isMultiSelectInput(input))
-							return <MultiSelect<Category> {...input} key={input.id} value={product.categories} />
+							return (
+								<MultiSelect<Category>
+									{...input}
+									key={input.id}
+									value={product.categories}
+									onChange={onChange}
+								/>
+							)
 						else return null
 					})}
 				</div>

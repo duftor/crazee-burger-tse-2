@@ -1,18 +1,34 @@
 import { BaseOptions } from "@/types/Inputs"
-import Select, { GroupBase, OptionsOrGroups, Props } from "react-select"
+import Select, { GroupBase, MultiValue, OptionsOrGroups, Props } from "react-select"
 
 type MultiSelectProps<T extends BaseOptions> = {
+	name: string
 	options?: OptionsOrGroups<T, GroupBase<T>>
 	value?: T[]
+	onChange?: (event: { target: { name: string; value: T[] } }) => void
 } & Props<T, true>
 
-export const MultiSelect = <T extends BaseOptions>({ options, value, ...restProps }: MultiSelectProps<T>) => {
+export const MultiSelect = <T extends BaseOptions>({
+	name,
+	options,
+	value,
+	onChange,
+	...restProps
+}: MultiSelectProps<T>) => {
+	const handleChange = (selected: MultiValue<T>) => {
+		const fakeEvent = {
+			target: { name, value: [...selected] },
+		}
+		onChange?.(fakeEvent)
+	}
+
 	return (
 		<Select
 			isMulti
 			value={value}
 			closeMenuOnSelect={false}
 			options={options}
+			onChange={handleChange}
 			noOptionsMessage={() => "Plus d'options"}
 			{...restProps}
 			// styles={colourStyles}
