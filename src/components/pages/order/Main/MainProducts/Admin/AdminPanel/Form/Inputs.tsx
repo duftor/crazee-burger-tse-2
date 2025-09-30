@@ -2,8 +2,9 @@ import React from "react"
 import TextInput from "@/components/reusable-ui/TextInput"
 import SelectInput from "@/components/reusable-ui/SelectInput"
 import styled from "styled-components"
-import { getInputTextsConfig, getSelectInputConfig } from "./inputConfig"
+import { getInputConfig } from "./inputConfig"
 import { Product } from "@/types/Product"
+import { isTextInput } from "@/types/Inputs"
 
 export type InputsProps = {
 	product: Product
@@ -14,54 +15,51 @@ export type InputsProps = {
 }
 
 export const Inputs = React.forwardRef<HTMLInputElement, InputsProps>(({ product, onChange, onFocus, onBlur }, ref) => {
-	const inputTexts = getInputTextsConfig(product)
-	const inputSelects = getSelectInputConfig(product)
+	const inputTexts = getInputConfig(product)
 
 	// affichage
 	return (
 		<InputsStyled>
-			{inputTexts.map((input) => (
-				<TextInput
-					{...input}
-					key={input.id}
-					onChange={onChange}
-					version="minimalist"
-					onFocus={onFocus}
-					onBlur={onBlur}
-					ref={ref && input.name === "title" ? ref : null}
-				/>
-			))}
-			{inputSelects.map((inputSelect) => (
-				<SelectInput
-					{...inputSelect}
-					key={inputSelect.id}
-					onChange={onChange}
-					onFocus={onFocus}
-					onBlur={onBlur}
-				/>
+			{inputTexts.map((inputsRow, rowId) => (
+				<div className="row-inputs" key={rowId}>
+					{inputsRow.map((input) =>
+						isTextInput(input) ? (
+							<TextInput
+								{...input}
+								key={input.id}
+								onChange={onChange}
+								version="minimalist"
+								onFocus={onFocus}
+								onBlur={onBlur}
+								ref={ref && input.name === "title" ? ref : null}
+							/>
+						) : (
+							<SelectInput
+								{...input}
+								key={input.id}
+								onChange={onChange}
+								onFocus={onFocus}
+								onBlur={onBlur}
+							/>
+						)
+					)}
+				</div>
 			))}
 		</InputsStyled>
 	)
 })
 
 const InputsStyled = styled.div`
-	/* border: 1px solid red; */
-	/* background: blue; */
 	grid-area: 1 / 2 / -2 / 3;
 
-	display: grid;
-	grid-template-rows: repeat(3, 1fr);
-	grid-template-columns: repeat(3, 1fr);
-	grid-row-gap: 8px;
-	grid-column-gap: 8px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
 
-	.title {
-		grid-area: 1/1/2/4;
-	}
-	.image-source {
-		grid-area: 2/1/3/4;
-	}
-	.price {
-		grid-area: 3/1/4/2;
+	.row-inputs {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		gap: 8px;
 	}
 `

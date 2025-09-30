@@ -44,6 +44,7 @@ const TextInputStyled = styled.div<TextInputStyledProps>`
 	flex-direction: column;
 	gap: ${theme.spacing.xs};
 	font-size: ${theme.fonts.size.P0};
+	width: 100%;
 
 	.input-wrapper {
 		border: 1px solid ${({ hasError }) => (hasError ? theme.colors.red : "transparent")};
