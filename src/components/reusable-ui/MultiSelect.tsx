@@ -6,17 +6,26 @@ import Select, {
 	ControlProps,
 	GroupBase,
 	MultiValue,
+	OptionProps,
 	OptionsOrGroups,
 	Props,
 	StylesConfig,
 } from "react-select"
 import styled from "styled-components"
+import { Chip } from "./Chip"
+
+type MultiSelectOnChange<T> = (event: {
+	target: {
+		name: string
+		value: T[]
+	}
+}) => void
 
 type MultiSelectProps<T extends BaseOptions> = {
 	name: string
 	options?: OptionsOrGroups<T, GroupBase<T>>
 	value?: T[]
-	onChange?: (event: { target: { name: string; value: T[] } }) => void
+	onChange?: MultiSelectOnChange<T>
 	Icon?: JSX.Element
 } & Props<T, true>
 
@@ -66,6 +75,7 @@ export const MultiSelect = <T extends BaseOptions>({
 				DropdownIndicator: () => null,
 				IndicatorSeparator: () => null,
 			}}
+			menuPlacement="top"
 		/>
 	)
 }
@@ -88,15 +98,51 @@ const ControlStyled = styled.div`
 `
 
 const createMultiSelectStyles = <T extends BaseOptions>(): StylesConfig<T, true> => ({
-	control: (base, state) => ({
+	container: (base) => ({
+		...base,
+		width: "100%",
+		fontFamily: theme.fonts.family.openSans,
+		fontSize: theme.fonts.size.SM,
+	}),
+	control: (base) => ({
 		...base,
 		boxShadow: "none",
 		border: "none",
-		borderColor: state.isFocused ? theme.colors.greyBlue : "transparent",
 		backgroundColor: theme.colors.background_white,
-		fontSize: theme.fonts.size.SM,
-		fontFamily: theme.fonts.family.openSans,
 		color: theme.colors.greySemiDark,
+		width: "100%",
+		justifyContent: "flex-start",
+		alignItems: "center",
+		position: "relative",
+	}),
+	indicatorsContainer: (base) => ({
+		...base,
+		display: "flex",
+		alignItems: "center",
+		justifyContent: "center",
+		position: "absolute",
+		width: "36px",
+		height: "100%",
+		paddingRight: "8px",
+		right: 0,
+		top: 0,
+	}),
+	clearIndicator: (base) => ({
+		...base,
+		color: theme.colors.grey,
+		padding: 4,
+		"&:hover": {
+			color: theme.colors.greyMedium,
+			cursor: "pointer",
+		},
+	}),
+	valueContainer: (base) => ({
+		...base,
+		display: "flex",
+		flexWrap: "nowrap",
+		overflow: "hidden",
+		textOverflow: "ellipsis",
+		whiteSpace: "nowrap",
 	}),
 	placeholder: (base) => ({
 		...base,
