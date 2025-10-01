@@ -7,6 +7,7 @@ import { Product } from "@/types/Product"
 import { InputConfig } from "@/types/Inputs"
 import { IoPricetag } from "react-icons/io5"
 import { Category } from "@/types/Category"
+import { MdOutlineEuro } from "react-icons/md"
 
 type GetInputConfigType = (newProduct: Product, categories: Category[]) => InputConfig[][]
 
@@ -40,12 +41,22 @@ export const getInputConfig: GetInputConfigType = (newProduct, categories) => [
 			name: "categories",
 			options: categories,
 			value: newProduct.categories,
-			// Icon: <IoPricetag />,
+			Icon: <IoPricetag />,
 		},
 	],
 	[
 		{
 			id: "4",
+			type: "text" as const,
+			name: "price",
+			value: newProduct.price ? newProduct.price : "",
+			placeholder: "Prix",
+			Icon: <MdOutlineEuro />,
+			version: "minimalist",
+			className: "price",
+		},
+		{
+			id: "5",
 			type: "select" as const,
 			name: "isAvailable",
 			value: newProduct.isAvailable.toString(),
@@ -54,7 +65,7 @@ export const getInputConfig: GetInputConfigType = (newProduct, categories) => [
 			className: "is-available",
 		},
 		{
-			id: "5",
+			id: "6",
 			type: "select" as const,
 			name: "isPublicised",
 			value: newProduct.isPublicised.toString(),

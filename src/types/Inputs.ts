@@ -38,6 +38,8 @@ export type MultiSelectInputConfig<T extends BaseOptions> = {
 	name: string
 	defaultValue?: T[]
 	options: T[]
+	Icon: JSX.Element
+	value?: T[]
 }
 
 // Based on Category for now, could be generic in the future if needed

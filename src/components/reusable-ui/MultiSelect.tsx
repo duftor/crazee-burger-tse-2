@@ -1,11 +1,23 @@
+import { theme } from "@/theme/theme"
 import { BaseOptions } from "@/types/Inputs"
-import Select, { GroupBase, MultiValue, OptionsOrGroups, Props } from "react-select"
+import { IoPricetag } from "react-icons/io5"
+import Select, {
+	components,
+	ControlProps,
+	GroupBase,
+	MultiValue,
+	OptionsOrGroups,
+	Props,
+	StylesConfig,
+} from "react-select"
+import styled from "styled-components"
 
 type MultiSelectProps<T extends BaseOptions> = {
 	name: string
 	options?: OptionsOrGroups<T, GroupBase<T>>
 	value?: T[]
 	onChange?: (event: { target: { name: string; value: T[] } }) => void
+	Icon?: JSX.Element
 } & Props<T, true>
 
 export const MultiSelect = <T extends BaseOptions>({
@@ -13,6 +25,7 @@ export const MultiSelect = <T extends BaseOptions>({
 	options,
 	value,
 	onChange,
+	Icon,
 	...restProps
 }: MultiSelectProps<T>) => {
 	const handleChange = (selected: MultiValue<T>) => {
@@ -20,6 +33,21 @@ export const MultiSelect = <T extends BaseOptions>({
 			target: { name, value: [...selected] },
 		}
 		onChange?.(fakeEvent)
+	}
+
+	const Control = (props: ControlProps<T, true>) => {
+		return (
+			<ControlStyled>
+				<components.Control {...props}>
+					{Icon && (
+						<div className="icon">
+							<IoPricetag size={15} />
+						</div>
+					)}
+					<div className="input">{props.children}</div>
+				</components.Control>
+			</ControlStyled>
+		)
 	}
 
 	return (
@@ -30,12 +58,58 @@ export const MultiSelect = <T extends BaseOptions>({
 			options={options}
 			onChange={handleChange}
 			noOptionsMessage={() => "Plus d'options"}
+			placeholder="Catégorie (ex: Boisson)"
+			styles={createMultiSelectStyles<T>()}
 			{...restProps}
-			// styles={colourStyles}
+			components={{
+				Control,
+				DropdownIndicator: () => null,
+				IndicatorSeparator: () => null,
+			}}
 		/>
 	)
 }
 
+const ControlStyled = styled.div`
+	display: flex;
+	align-items: center;
+	width: 100%;
+
+	.icon {
+		display: flex;
+		align-items: "center";
+		padding: 12px 0px 12px 24px;
+		color: ${theme.colors.greyBlue};
+	}
+
+	.input {
+		padding-left: 5px;
+	}
+`
+
+const createMultiSelectStyles = <T extends BaseOptions>(): StylesConfig<T, true> => ({
+	control: (base, state) => ({
+		...base,
+		boxShadow: "none",
+		border: "none",
+		borderColor: state.isFocused ? theme.colors.greyBlue : "transparent",
+		backgroundColor: theme.colors.background_white,
+		fontSize: theme.fonts.size.SM,
+		fontFamily: theme.fonts.family.openSans,
+		color: theme.colors.greySemiDark,
+	}),
+	placeholder: (base) => ({
+		...base,
+		color: theme.colors.greyMedium,
+	}),
+	input: (base) => ({
+		...base,
+		color: theme.colors.dark,
+	}),
+	option: (base, state) => ({
+		...base,
+	}),
+})
 // const colourStyles: StylesConfig<ColourOption, true> = {
 // 	control: (styles) => ({ ...styles, backgroundColor: "white" }),
 // 	option: (styles, { data, isDisabled, isFocused, isSelected }) => {
