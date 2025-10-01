@@ -13,7 +13,7 @@ type GetInputConfigType = (newProduct: Product, categories: Category[]) => Input
 export const getInputConfig: GetInputConfigType = (newProduct, categories) => [
 	[
 		{
-			id: crypto.randomUUID(),
+			id: "1",
 			type: "text" as const,
 			name: "title",
 			value: newProduct.title,
@@ -23,7 +23,7 @@ export const getInputConfig: GetInputConfigType = (newProduct, categories) => [
 			className: "title",
 		},
 		{
-			id: crypto.randomUUID(),
+			id: "2",
 			type: "text" as const,
 			name: "imageSource",
 			value: newProduct.imageSource,
@@ -35,7 +35,7 @@ export const getInputConfig: GetInputConfigType = (newProduct, categories) => [
 	],
 	[
 		{
-			id: crypto.randomUUID(),
+			id: "3",
 			type: "multiselect" as const,
 			name: "categories",
 			options: categories,
@@ -45,7 +45,7 @@ export const getInputConfig: GetInputConfigType = (newProduct, categories) => [
 	],
 	[
 		{
-			id: crypto.randomUUID(),
+			id: "4",
 			type: "select" as const,
 			name: "isAvailable",
 			value: newProduct.isAvailable.toString(),
@@ -54,7 +54,7 @@ export const getInputConfig: GetInputConfigType = (newProduct, categories) => [
 			className: "is-available",
 		},
 		{
-			id: crypto.randomUUID(),
+			id: "5",
 			type: "select" as const,
 			name: "isPublicised",
 			value: newProduct.isPublicised.toString(),
