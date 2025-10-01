@@ -37,7 +37,7 @@ const SelectInputStyled = styled.div`
 	border-radius: ${theme.borderRadius.round};
 	display: flex;
 	align-items: center;
-	padding: 8px 16px;
+	padding: 10px 24px;
 	width: 100%;
 
 	.icon {
