@@ -8,6 +8,7 @@ import { isMultiSelectInput, isSelectInput, isTextInput } from "@/types/Inputs"
 import { MultiSelect } from "@/components/reusable-ui/MultiSelect"
 import { useOrderContext } from "@/context/OrderContext"
 import { Category } from "@/types/Category"
+import { Chip } from "@/components/reusable-ui/Chip"
 
 export type InputsProps = {
 	product: Product
@@ -55,6 +56,7 @@ export const Inputs = React.forwardRef<HTMLInputElement, InputsProps>(({ product
 									key={input.id}
 									value={product.categories}
 									onChange={onChange}
+									OptionComponent={(option) => <Chip {...option} variant="hoverable" />}
 								/>
 							)
 						else return null

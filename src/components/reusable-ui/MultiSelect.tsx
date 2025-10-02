@@ -27,6 +27,7 @@ type MultiSelectProps<T extends BaseOptions> = {
 	value?: T[]
 	onChange?: MultiSelectOnChange<T>
 	Icon?: JSX.Element
+	OptionComponent: (option: T) => JSX.Element
 } & Props<T, true>
 
 export const MultiSelect = <T extends BaseOptions>({
@@ -35,6 +36,7 @@ export const MultiSelect = <T extends BaseOptions>({
 	value,
 	onChange,
 	Icon,
+	OptionComponent,
 	...restProps
 }: MultiSelectProps<T>) => {
 	const handleChange = (selected: MultiValue<T>) => {
@@ -59,6 +61,15 @@ export const MultiSelect = <T extends BaseOptions>({
 		)
 	}
 
+	const Option = (props: OptionProps<T, true>) => {
+		const data = props.data
+		return (
+			<components.Option {...props}>
+				{OptionComponent ? <OptionComponent {...data} /> : <span>{data.label}</span>}
+			</components.Option>
+		)
+	}
+
 	return (
 		<Select
 			isMulti
@@ -72,6 +83,7 @@ export const MultiSelect = <T extends BaseOptions>({
 			{...restProps}
 			components={{
 				Control,
+				Option,
 				DropdownIndicator: () => null,
 				IndicatorSeparator: () => null,
 			}}
@@ -152,8 +164,28 @@ const createMultiSelectStyles = <T extends BaseOptions>(): StylesConfig<T, true>
 		...base,
 		color: theme.colors.dark,
 	}),
-	option: (base, state) => ({
+	option: (base) => ({
 		...base,
+		backgroundColor: "transparent",
+		padding: "0",
+		display: "flex",
+		justifyContent: "flex-start",
+		width: "100%",
+		height: "34px",
+		cursor: "pointer",
+		":hover": {
+			backgroundColor: "transparent",
+		},
+	}),
+	menu: (base) => ({
+		...base,
+	}),
+	menuList: (base) => ({
+		...base,
+		display: "flex",
+		flexDirection: "column",
+		gap: "6px",
+		padding: "10px 6px",
 	}),
 })
 // const colourStyles: StylesConfig<ColourOption, true> = {
