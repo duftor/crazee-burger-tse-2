@@ -57,7 +57,6 @@ export const Inputs = React.forwardRef<HTMLInputElement, InputsProps>(({ product
 									value={product.categories}
 									onChange={onChange}
 									OptionComponent={(option) => <Chip {...option} variant="hoverable" />}
-									MultiValueComponent={(option) => <Chip {...option} variant="filled" />}
 								/>
 							)
 						else return null

@@ -1,9 +1,7 @@
 import { theme } from "@/theme/theme"
 import { BaseOptions } from "@/types/Inputs"
-import { IoPricetag } from "react-icons/io5"
 import Select, {
 	components,
-	ControlProps,
 	GroupBase,
 	MultiValue,
 	OptionProps,
@@ -11,7 +9,6 @@ import Select, {
 	Props,
 	StylesConfig,
 } from "react-select"
-import styled from "styled-components"
 import { applyOpacity } from "@/utils/color"
 
 type MultiSelectOnChange<T> = (event: {
@@ -28,7 +25,6 @@ type MultiSelectProps<T extends BaseOptions> = {
 	onChange?: MultiSelectOnChange<T>
 	Icon?: JSX.Element
 	OptionComponent?: (option: T) => JSX.Element
-	MultiValueComponent?: (option: T) => JSX.Element
 } & Props<T, true>
 
 export const MultiSelect = <T extends BaseOptions>({
@@ -38,7 +34,6 @@ export const MultiSelect = <T extends BaseOptions>({
 	onChange,
 	Icon,
 	OptionComponent,
-	MultiValueComponent,
 	...restProps
 }: MultiSelectProps<T>) => {
 	const handleChange = (selected: MultiValue<T>) => {
@@ -48,18 +43,12 @@ export const MultiSelect = <T extends BaseOptions>({
 		onChange?.(fakeEvent)
 	}
 
-	const Control = (props: ControlProps<T, true>) => {
+	const ValueContainer = (props: any) => {
 		return (
-			<ControlStyled>
-				<components.Control {...props}>
-					{Icon && (
-						<div className="icon">
-							<IoPricetag size={15} />
-						</div>
-					)}
-					<div className="input">{props.children}</div>
-				</components.Control>
-			</ControlStyled>
+			<components.ValueContainer {...props}>
+				{Icon && <span style={{ marginRight: "12px", display: "flex", alignItems: "center" }}>{Icon}</span>}
+				{props.children}
+			</components.ValueContainer>
 		)
 	}
 
@@ -84,8 +73,8 @@ export const MultiSelect = <T extends BaseOptions>({
 			styles={createMultiSelectStyles<T>()}
 			{...restProps}
 			components={{
-				Control,
 				Option,
+				ValueContainer,
 				DropdownIndicator: () => null,
 				IndicatorSeparator: () => null,
 			}}
@@ -94,60 +83,38 @@ export const MultiSelect = <T extends BaseOptions>({
 	)
 }
 
-const ControlStyled = styled.div`
-	.icon {
-		display: flex;
-		align-items: "center";
-		padding: 12px 0px 12px 24px;
-		color: ${theme.colors.greyBlue};
-	}
-
-	.input {
-		padding-left: 5px;
-	}
-`
-
 const createMultiSelectStyles = <T extends BaseOptions>(): StylesConfig<T, true> => ({
 	container: (base) => ({
 		...base,
 		width: "100%",
-		fontFamily: theme.fonts.family.openSans,
-		fontSize: theme.fonts.size.SM,
 	}),
 	control: (base) => ({
 		...base,
-		boxShadow: "none",
+		background: theme.colors.background_white,
 		border: "none",
-		backgroundColor: theme.colors.background_white,
-		color: theme.colors.greySemiDark,
-		width: "100%",
-		justifyContent: "flex-start",
-		alignItems: "center",
-		position: "relative",
-		display: "flex",
-		aligItems: "center",
-	}),
-	indicatorsContainer: (base) => ({
-		...base,
-		display: "flex",
-		alignItems: "center",
-		justifyContent: "center",
-		position: "absolute",
-		width: "36px",
-		height: "100%",
-		paddingRight: "8px",
-		right: 0,
-		top: 0,
-	}),
-	clearIndicator: (base) => ({
-		...base,
-		color: theme.colors.grey,
-		padding: 4,
+		borderRadius: theme.borderRadius.round,
+		boxShadow: "none", // ✅ enlève le halo bleu au focus
+		paddingLeft: 15,
+		paddingRight: 15,
 		"&:hover": {
-			color: theme.colors.greyMedium,
-			cursor: "pointer",
+			borderColor: "darkred", // 👈 si tu veux un hover plus marqué
+			// pointerEvents: "visible"
 		},
 	}),
+
+	indicatorsContainer: (base) => ({
+		...base,
+		position: "relative", // nécessaire pour le positionnement absolu interne
+		justifyContent: "flex-end", // si t’enlèves le clear, ça reste aligné à droite
+	}),
+
+	clearIndicator: (base) => ({
+		...base,
+		marginRight: -7,
+	}),
+
+	indicatorSeparator: () => ({}),
+
 	placeholder: (base) => ({
 		...base,
 		color: theme.colors.greyMedium,
@@ -158,14 +125,14 @@ const createMultiSelectStyles = <T extends BaseOptions>(): StylesConfig<T, true>
 		display: "flex",
 		alignItems: "stretch",
 	}),
-	option: (base) => ({
+	option: (base, props) => ({
 		...base,
+		// backgroundColor: getBgColorToApply(props.data, props.isSelected, props.isFocused),
 		backgroundColor: "transparent",
-		padding: "0",
+		color: props.data.color ?? theme.colors.greyBlue,
 		display: "flex",
-		justifyContent: "flex-start",
-		width: "100%",
-		height: "34px",
+		alignItems: "center",
+		gap: 8,
 		cursor: "pointer",
 		":hover": {
 			backgroundColor: "transparent",
@@ -173,6 +140,8 @@ const createMultiSelectStyles = <T extends BaseOptions>(): StylesConfig<T, true>
 	}),
 	menu: (base) => ({
 		...base,
+		width: "100%", // pour ajuster le width du menu déroulant. Par défaut il est à 100%.
+		minWidth: 0,
 	}),
 	menuList: (base) => ({
 		...base,
@@ -183,39 +152,57 @@ const createMultiSelectStyles = <T extends BaseOptions>(): StylesConfig<T, true>
 	}),
 	valueContainer: (base) => ({
 		...base,
+		background: theme.colors.background_white,
 		display: "flex",
-		flexWrap: "nowrap",
-		overflow: "hidden",
-		textOverflow: "ellipsis",
-		whiteSpace: "nowrap",
-		padding: "4px 0",
-		gap: "4px",
+		flexWrap: "nowrap", // on veut une seule ligne
+		// overflowX: "auto", // scroll si ça dépasse
+		maxWidth: "100%",
+		scrollbarWidth: "none", // Firefox
+		msOverflowStyle: "none", // IE/Edge
+		color: theme.colors.greyBlue,
+		"&::-webkit-scrollbar": {
+			height: 4, // petit scroll horizontal
+		},
+		"&::-webkit-scrollbar-thumb": {
+			backgroundColor: "#ccc", // couleur du scroll
+			borderRadius: 4,
+		},
+		borderRadius: theme.borderRadius.round,
 	}),
 	multiValue: (base, props) => ({
 		...base,
-		fontFamily: theme.fonts.family.openSans,
-		margin: 0,
-		border: `1px solid ${applyOpacity(props.data.color, 0.3)}`,
-		backgroundColor: applyOpacity(props.data.color, 0.1),
-		display: "flex",
-		alignItems: "center",
-		justifyContent: "center",
-		padding: "2px 16px",
-		borderRadius: theme.borderRadius.badgeRound,
-		columnGap: "10px",
+		backgroundColor: props.data.color
+			? applyOpacity(props.data.color, 0.1)
+			: applyOpacity(theme.colors.purple, 0.3), // ✅ on récupère la couleur définie dans l'option
+		borderRadius: 20,
+		border: `1px solid ${props.data.color}`, // 👈 ici le borderColor du badge
+		padding: "0px 6px", // paddingVertical à 0px sinon, c'est trop gros et ça fait grandir verticalement le Select container. Teste, et change ça valeur à 30px, tu verras la différence en rajoutant une valeur.
+		flexShrink: 0, // <-- empêche le squish
 	}),
 	multiValueLabel: (base, props) => ({
 		...base,
 		color: props.data.color,
-		padding: 0,
-		margin: 0,
-		display: "flex",
-		alignItems: "center",
+		fontWeight: 500,
 	}),
-
-	multiValueRemove: (base) => ({
+	multiValueRemove: (base, props) => ({
 		...base,
+		position: "relative",
+		color: "white",
+		backgroundColor: props.data.color ? props.data.color : theme.colors.dark,
+		borderRadius: "50%",
+		width: 14,
+		height: 14,
+		display: "flex",
+		justifyContent: "center",
+		alignSelf: "center",
 		padding: 0,
-		marginLeft: 0, // un petit gap si tu veux garder la croix
+		cursor: "pointer",
+		marginLeft: 2,
+		marginRight: 2,
+		":hover": {
+			backgroundColor: "transparent",
+			color: props.data.color ?? theme.colors.dark,
+			border: `1.5px solid ${props.data.color ?? theme.colors.dark}`,
+		},
 	}),
 })
