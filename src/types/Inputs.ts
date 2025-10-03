@@ -1,3 +1,4 @@
+import { Color } from "@/theme/theme"
 import { Category } from "./Category"
 
 export type Option = {
@@ -29,7 +30,7 @@ export type SelectInputConfig = {
 export type BaseOptions = {
 	value: string
 	label: string
-	color?: string
+	color?: Color | ""
 }
 
 export type MultiSelectInputConfig<T extends BaseOptions> = {

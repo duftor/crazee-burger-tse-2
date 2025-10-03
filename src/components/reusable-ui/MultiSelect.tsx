@@ -118,20 +118,15 @@ const createMultiSelectStyles = <T extends BaseOptions>(): StylesConfig<T, true>
 			// pointerEvents: "visible"
 		},
 	}),
-
 	indicatorsContainer: (base) => ({
 		...base,
 		position: "relative", // nécessaire pour le positionnement absolu interne
 		justifyContent: "flex-end", // si t’enlèves le clear, ça reste aligné à droite
 	}),
-
 	clearIndicator: (base) => ({
 		...base,
 		marginRight: -7,
 	}),
-
-	indicatorSeparator: () => ({}),
-
 	placeholder: (base) => ({
 		...base,
 		color: theme.colors.greyMedium,
