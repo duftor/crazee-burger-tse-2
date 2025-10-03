@@ -4,12 +4,14 @@ import Select, {
 	components,
 	GroupBase,
 	MultiValue,
+	MultiValueGenericProps,
 	OptionProps,
 	OptionsOrGroups,
 	Props,
 	StylesConfig,
 } from "react-select"
 import { applyOpacity } from "@/utils/color"
+import { getCategoryIcon } from "@/utils/icon"
 
 type MultiSelectOnChange<T> = (event: {
 	target: {
@@ -61,6 +63,20 @@ export const MultiSelect = <T extends BaseOptions>({
 		)
 	}
 
+	const MultiValueLabel = (props: MultiValueGenericProps<T, true>) => {
+		const data = props.data
+		const Icon = getCategoryIcon(data.iconName)
+
+		return (
+			<components.MultiValueLabel {...props}>
+				<div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+					{Icon && <Icon color={data.color} size={14} />}
+					<span>{data.label}</span>
+				</div>
+			</components.MultiValueLabel>
+		)
+	}
+
 	return (
 		<Select
 			isMulti
@@ -75,6 +91,7 @@ export const MultiSelect = <T extends BaseOptions>({
 			components={{
 				Option,
 				ValueContainer,
+				MultiValueLabel,
 				DropdownIndicator: () => null,
 				IndicatorSeparator: () => null,
 			}}
