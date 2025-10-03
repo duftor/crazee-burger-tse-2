@@ -1,5 +1,5 @@
 import { Color, theme } from "@/theme/theme"
-import styled, { css } from "styled-components"
+import styled from "styled-components"
 import { getCategoryIcon } from "@/utils/icon"
 import { applyOpacity } from "@/utils/color"
 import { IS_SELECTED_COLOR } from "@/constants/categories"

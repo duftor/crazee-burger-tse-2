@@ -12,7 +12,7 @@ import Select, {
 	StylesConfig,
 } from "react-select"
 import styled from "styled-components"
-import { Chip } from "./Chip"
+import { applyOpacity } from "@/utils/color"
 
 type MultiSelectOnChange<T> = (event: {
 	target: {
@@ -27,7 +27,8 @@ type MultiSelectProps<T extends BaseOptions> = {
 	value?: T[]
 	onChange?: MultiSelectOnChange<T>
 	Icon?: JSX.Element
-	OptionComponent: (option: T) => JSX.Element
+	OptionComponent?: (option: T) => JSX.Element
+	MultiValueComponent?: (option: T) => JSX.Element
 } & Props<T, true>
 
 export const MultiSelect = <T extends BaseOptions>({
@@ -37,6 +38,7 @@ export const MultiSelect = <T extends BaseOptions>({
 	onChange,
 	Icon,
 	OptionComponent,
+	MultiValueComponent,
 	...restProps
 }: MultiSelectProps<T>) => {
 	const handleChange = (selected: MultiValue<T>) => {
@@ -93,10 +95,6 @@ export const MultiSelect = <T extends BaseOptions>({
 }
 
 const ControlStyled = styled.div`
-	display: flex;
-	align-items: center;
-	width: 100%;
-
 	.icon {
 		display: flex;
 		align-items: "center";
@@ -126,6 +124,8 @@ const createMultiSelectStyles = <T extends BaseOptions>(): StylesConfig<T, true>
 		justifyContent: "flex-start",
 		alignItems: "center",
 		position: "relative",
+		display: "flex",
+		aligItems: "center",
 	}),
 	indicatorsContainer: (base) => ({
 		...base,
@@ -148,14 +148,6 @@ const createMultiSelectStyles = <T extends BaseOptions>(): StylesConfig<T, true>
 			cursor: "pointer",
 		},
 	}),
-	valueContainer: (base) => ({
-		...base,
-		display: "flex",
-		flexWrap: "nowrap",
-		overflow: "hidden",
-		textOverflow: "ellipsis",
-		whiteSpace: "nowrap",
-	}),
 	placeholder: (base) => ({
 		...base,
 		color: theme.colors.greyMedium,
@@ -163,6 +155,8 @@ const createMultiSelectStyles = <T extends BaseOptions>(): StylesConfig<T, true>
 	input: (base) => ({
 		...base,
 		color: theme.colors.dark,
+		display: "flex",
+		alignItems: "stretch",
 	}),
 	option: (base) => ({
 		...base,
@@ -187,52 +181,41 @@ const createMultiSelectStyles = <T extends BaseOptions>(): StylesConfig<T, true>
 		gap: "6px",
 		padding: "10px 6px",
 	}),
-})
-// const colourStyles: StylesConfig<ColourOption, true> = {
-// 	control: (styles) => ({ ...styles, backgroundColor: "white" }),
-// 	option: (styles, { data, isDisabled, isFocused, isSelected }) => {
-// 		const color = chroma(data.color)
-// 		return {
-// 			...styles,
-// 			backgroundColor: isDisabled
-// 				? undefined
-// 				: isSelected
-// 				? data.color
-// 				: isFocused
-// 				? color.alpha(0.1).css()
-// 				: undefined,
-// 			color: isDisabled
-// 				? "#ccc"
-// 				: isSelected
-// 				? chroma.contrast(color, "white") > 2
-// 					? "white"
-// 					: "black"
-// 				: data.color,
-// 			cursor: isDisabled ? "not-allowed" : "default",
+	valueContainer: (base) => ({
+		...base,
+		display: "flex",
+		flexWrap: "nowrap",
+		overflow: "hidden",
+		textOverflow: "ellipsis",
+		whiteSpace: "nowrap",
+		padding: "4px 0",
+		gap: "4px",
+	}),
+	multiValue: (base, props) => ({
+		...base,
+		fontFamily: theme.fonts.family.openSans,
+		margin: 0,
+		border: `1px solid ${applyOpacity(props.data.color, 0.3)}`,
+		backgroundColor: applyOpacity(props.data.color, 0.1),
+		display: "flex",
+		alignItems: "center",
+		justifyContent: "center",
+		padding: "2px 16px",
+		borderRadius: theme.borderRadius.badgeRound,
+		columnGap: "10px",
+	}),
+	multiValueLabel: (base, props) => ({
+		...base,
+		color: props.data.color,
+		padding: 0,
+		margin: 0,
+		display: "flex",
+		alignItems: "center",
+	}),
 
-// 			":active": {
-// 				...styles[":active"],
-// 				backgroundColor: !isDisabled ? (isSelected ? data.color : color.alpha(0.3).css()) : undefined,
-// 			},
-// 		}
-// 	},
-// 	multiValue: (styles, { data }) => {
-// 		const color = chroma(data.color)
-// 		return {
-// 			...styles,
-// 			backgroundColor: color.alpha(0.1).css(),
-// 		}
-// 	},
-// 	multiValueLabel: (styles, { data }) => ({
-// 		...styles,
-// 		color: data.color,
-// 	}),
-// 	multiValueRemove: (styles, { data }) => ({
-// 		...styles,
-// 		color: data.color,
-// 		":hover": {
-// 			backgroundColor: data.color,
-// 			color: "white",
-// 		},
-// 	}),
-// }
+	multiValueRemove: (base) => ({
+		...base,
+		padding: 0,
+		marginLeft: 0, // un petit gap si tu veux garder la croix
+	}),
+})
