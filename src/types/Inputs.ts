@@ -1,5 +1,6 @@
 import { Color } from "@/theme/theme"
 import { Category } from "./Category"
+import { IconType } from "react-icons"
 
 export type Option = {
 	optionValue?: string | number | readonly string[]
@@ -39,7 +40,7 @@ export type MultiSelectInputConfig<T extends BaseOptions> = {
 	name: string
 	defaultValue?: T[]
 	options: T[]
-	Icon: JSX.Element
+	customIcon: IconType
 	value?: T[]
 }
 

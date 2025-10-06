@@ -5,21 +5,30 @@ import styled from "styled-components"
 import { getInputConfig } from "./inputConfig"
 import { Product } from "@/types/Product"
 import { isMultiSelectInput, isSelectInput, isTextInput } from "@/types/Inputs"
-import { MultiSelect } from "@/components/reusable-ui/MultiSelect"
+import { MultiSelect } from "@/components/reusable-ui/MultiSelect/MultiSelect"
 import { useOrderContext } from "@/context/OrderContext"
 import { Category } from "@/types/Category"
-import { Chip } from "@/components/reusable-ui/Chip"
+import { FormEvents } from "@/types/FormEvents"
+import { MultiValue } from "react-select"
 
 export type InputsProps = {
 	product: Product
-	onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLSelectElement>
-	onFocus?: React.FocusEventHandler<HTMLInputElement | HTMLSelectElement>
-	onBlur?: React.FocusEventHandler<HTMLInputElement | HTMLSelectElement>
-}
+} & FormEvents
 
 export const Inputs = React.forwardRef<HTMLInputElement, InputsProps>(({ product, onChange, onFocus, onBlur }, ref) => {
 	const { categories } = useOrderContext()
 	const inputTexts = getInputConfig(product, categories)
+
+	const onChangeMulti = (selectedCategories: MultiValue<Category>) => {
+		console.log("selectedCategories", selectedCategories)
+		const eventMulti = {
+			target: {
+				name: "categories",
+				value: selectedCategories,
+			},
+		} as unknown as React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+		onChange && onChange(eventMulti)
+	}
 
 	// affichage
 	return (
@@ -54,9 +63,9 @@ export const Inputs = React.forwardRef<HTMLInputElement, InputsProps>(({ product
 								<MultiSelect<Category>
 									{...input}
 									key={input.id}
-									value={product.categories}
-									onChange={onChange}
-									OptionComponent={(option) => <Chip {...option} variant="hoverable" />}
+									onChange={onChangeMulti}
+									placeholder="Catégorie (ex: Boisson)"
+									menuPlacement="auto"
 								/>
 							)
 						else return null

@@ -24,7 +24,7 @@ const colors = {
 } as const
 
 type Colors = typeof colors
-export type Color = Colors[keyof Colors]
+export type Color = Colors[keyof Colors] | ""
 
 const spacing = {
 	xxs: "4px",

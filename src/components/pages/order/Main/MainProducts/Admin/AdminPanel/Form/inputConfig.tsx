@@ -21,7 +21,7 @@ export const getInputConfig: GetInputConfigType = (newProduct, categories) => [
 			placeholder: "Nom du produit (ex: Super Burger)",
 			Icon: <FaHamburger />,
 			version: "minimalist",
-			className: "title",
+			// className: "title",
 		},
 		{
 			id: "2",
@@ -31,7 +31,7 @@ export const getInputConfig: GetInputConfigType = (newProduct, categories) => [
 			placeholder: "Lien URL d'une image (ex: https://la-photo-de-mon-produit.png)",
 			Icon: <BsFillCameraFill />,
 			version: "minimalist",
-			className: "image-source",
+			// className: "image-source",
 		},
 	],
 	[
@@ -41,7 +41,7 @@ export const getInputConfig: GetInputConfigType = (newProduct, categories) => [
 			name: "categories",
 			options: categories,
 			value: newProduct.categories,
-			Icon: <IoPricetag />,
+			customIcon: IoPricetag,
 		},
 	],
 	[
@@ -53,7 +53,7 @@ export const getInputConfig: GetInputConfigType = (newProduct, categories) => [
 			placeholder: "Prix",
 			Icon: <MdOutlineEuro />,
 			version: "minimalist",
-			className: "price",
+			// className: "price",
 		},
 		{
 			id: "5",
@@ -62,7 +62,7 @@ export const getInputConfig: GetInputConfigType = (newProduct, categories) => [
 			value: newProduct.isAvailable.toString(),
 			options: isAvailableOptions,
 			Icon: <FiPackage />,
-			className: "is-available",
+			// className: "is-available",
 		},
 		{
 			id: "6",
@@ -71,7 +71,7 @@ export const getInputConfig: GetInputConfigType = (newProduct, categories) => [
 			value: newProduct.isPublicised.toString(),
 			options: isPublicisedOptions,
 			Icon: <GoMegaphone />,
-			className: "is-publicised",
+			// className: "is-publicised",
 		},
 	],
 ]

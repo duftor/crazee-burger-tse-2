@@ -28,7 +28,7 @@ export const getBgColorToApply = (data: { color: Color }, isSelected: boolean, i
 			? applyOpacity(data.color ?? theme.colors.redSecondary, 0.25)
 			: isFocused
 			? applyOpacity(data.color ?? theme.colors.redSecondary, 0.1)
-			: "red"
+			: "transparent"
 	} else {
 		bgColor = isSelected ? "blue" : isFocused ? theme.colors.greyLight : "white"
 	}
