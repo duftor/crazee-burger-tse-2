@@ -42,6 +42,7 @@ export type MultiSelectInputConfig<T extends BaseOptions> = {
 	options: T[]
 	customIcon: IconType
 	value?: T[]
+	placeholder?: string
 }
 
 // Based on Category for now, could be generic in the future if needed

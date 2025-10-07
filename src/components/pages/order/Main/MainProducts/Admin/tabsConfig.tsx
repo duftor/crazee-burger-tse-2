@@ -2,17 +2,17 @@ import { AiOutlinePlus } from "react-icons/ai"
 import { MdModeEditOutline } from "react-icons/md"
 import EditForm from "./AdminPanel/EditForm/EditForm"
 import HintMessage from "./AdminPanel/EditForm/HintMessage"
-import AddForm from "./AdminPanel/AddForm/AddForm"
 import { TabType } from "@/types/Tab"
 import { ADMIN_TAB_LABEL } from "@/constants/tab"
 import { IoPricetag } from "react-icons/io5"
+import { AddProductForm } from "./AdminPanel/Form/AddProductForm"
 
 export const getTabsConfig = (hasAlreadyBeenClicked?: boolean): TabType[] => [
 	{
 		index: ADMIN_TAB_LABEL.ADD_PRODUCT,
 		label: "Ajouter un produit",
 		Icon: <AiOutlinePlus />,
-		Content: <AddForm />,
+		Content: <AddProductForm />,
 	},
 	{
 		index: ADMIN_TAB_LABEL.EDIT_PRODUCT,
