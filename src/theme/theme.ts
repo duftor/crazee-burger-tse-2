@@ -20,10 +20,11 @@ const colors = {
 	rose: "#FF99C8",
 	purple: "#A01FF0",
 	yellow: "#FFC300",
+	grey: "#cccccc",
 } as const
 
 type Colors = typeof colors
-export type Color = Colors[keyof Colors]
+export type Color = Colors[keyof Colors] | ""
 
 const spacing = {
 	xxs: "4px",

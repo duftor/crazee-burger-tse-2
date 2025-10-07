@@ -9,6 +9,7 @@ export const CATEGORY_MENUS: Category = {
 	color: theme.colors.purple,
 	iconName: "menu",
 	isActive: false,
+	value: "",
 }
 
 export const EMPTY_MENU: Menu = {
