@@ -17,6 +17,7 @@ export const getCategoryInputConfig: GetInputConfigType = (newCategory) => [
 			placeholder: "Nom de la catégorie (ex: salade)",
 			version: "minimalist",
 			Icon: <IoPricetag />,
+			autoFocus: true,
 		},
 	],
 	[

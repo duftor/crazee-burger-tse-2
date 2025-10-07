@@ -16,6 +16,7 @@ export type TextInputConfig = {
 	Icon: JSX.Element
 	version: string
 	className?: string
+	autoFocus?: boolean
 }
 
 export type SelectInputConfig = {
