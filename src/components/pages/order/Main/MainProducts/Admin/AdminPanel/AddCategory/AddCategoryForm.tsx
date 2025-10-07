@@ -26,8 +26,7 @@ export const AddCategoryForm = ({}: AddCategoryFormProps) => {
 		if (!username) return
 
 		const newCategoryToAdd = { ...newCategory, id: crypto.randomUUID() }
-		// handleAddCategory(newCategoryToAdd, username)
-		console.log("newCategoryToAdd", newCategoryToAdd)
+		handleAddCategory(newCategoryToAdd, username)
 		setNewCategory(EMPTY_CATEGORY)
 		displaySuccessMessage()
 	}

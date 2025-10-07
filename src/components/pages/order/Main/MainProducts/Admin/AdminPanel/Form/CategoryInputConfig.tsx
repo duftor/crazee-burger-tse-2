@@ -1,34 +1,11 @@
+import { colorOptions, iconOptions } from "@/constants/select"
 import { Category } from "@/types/Category"
 import { InputConfig } from "@/types/Inputs"
+import { BsFillCameraFill } from "react-icons/bs"
 import { IoPricetag } from "react-icons/io5"
+import { PiPaintBucketFill } from "react-icons/pi"
 
 type GetInputConfigType = (newProduct: Category) => InputConfig[][]
-
-const colorOptions = [
-	{ value: "red", label: "Rouge" },
-	{ value: "blue", label: "Bleu" },
-	{ value: "green", label: "Vert" },
-	{ value: "yellow", label: "Jaune" },
-	{ value: "orange", label: "Orange" },
-	{ value: "purple", label: "Violet" },
-	{ value: "pink", label: "Rose" },
-	{ value: "brown", label: "Marron" },
-	{ value: "grey", label: "Gris" },
-	{ value: "black", label: "Noir" },
-]
-
-const iconOptions = [
-	{ value: "burger", label: "Burger" },
-	{ value: "fries", label: "Frites" },
-	{ value: "drink", label: "Boisson" },
-	{ value: "dessert", label: "Dessert" },
-	{ value: "salad", label: "Salade" },
-	{ value: "pizza", label: "Pizza" },
-	{ value: "sushi", label: "Sushi" },
-	{ value: "coffee", label: "Café" },
-	{ value: "ice-cream", label: "Glace" },
-	{ value: "steak", label: "Steak" },
-]
 
 export const getCategoryInputConfig: GetInputConfigType = (newCategory) => [
 	[
@@ -48,9 +25,8 @@ export const getCategoryInputConfig: GetInputConfigType = (newCategory) => [
 			type: "select" as const,
 			name: "color",
 			value: newCategory.color,
-			// placeholder: "Sélectionner une couleur",
 			options: colorOptions,
-			Icon: <IoPricetag />,
+			Icon: <PiPaintBucketFill />,
 		},
 	],
 	[
@@ -59,9 +35,8 @@ export const getCategoryInputConfig: GetInputConfigType = (newCategory) => [
 			type: "select" as const,
 			name: "iconName",
 			value: newCategory.iconName,
-			// placeholder: "Sélectionner une icône",
 			options: iconOptions,
-			Icon: <IoPricetag />,
+			Icon: <BsFillCameraFill />,
 		},
 	],
 ]
