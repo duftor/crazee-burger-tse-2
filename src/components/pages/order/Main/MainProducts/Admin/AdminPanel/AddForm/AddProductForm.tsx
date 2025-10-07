@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom"
 import { replaceFrenchCommaWithDot } from "@/utils/maths"
 import { EMPTY_PRODUCT } from "@/constants/product"
 import { useSuccessMessage } from "@/hooks/useSuccessMessage"
-import SubmitButton from "./SubmitButton"
+import SubmitButton from "../Form/SubmitButton"
 import { ProductForm } from "../Form/ProductForm"
 
 export function AddProductForm() {
@@ -33,7 +33,7 @@ export function AddProductForm() {
 
 	return (
 		<ProductForm entity={newProduct} inputConfig={inputConfig} onChange={handleChange} onSubmit={handleSubmit}>
-			<SubmitButton isSubmitted={isSubmitted} />
+			<SubmitButton isSubmitted={isSubmitted} label="Ajouter un nouveau produit au menu" />
 		</ProductForm>
 	)
 }

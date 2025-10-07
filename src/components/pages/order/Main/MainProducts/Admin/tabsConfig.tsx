@@ -6,6 +6,7 @@ import { ADMIN_TAB_LABEL } from "@/constants/tab"
 import { IoPricetag } from "react-icons/io5"
 import { AddProductForm } from "./AdminPanel/AddForm/AddProductForm"
 import { EditProductForm } from "./AdminPanel/EditForm/EditProductForm"
+import { AddCategoryForm } from "./AdminPanel/AddCategory/AddCategoryForm"
 
 export const getTabsConfig = (hasAlreadyBeenClicked?: boolean): TabType[] => [
 	{
@@ -24,7 +25,7 @@ export const getTabsConfig = (hasAlreadyBeenClicked?: boolean): TabType[] => [
 		index: ADMIN_TAB_LABEL.ADD_CATEGORY,
 		label: "Créer une catégorie",
 		Icon: <IoPricetag />,
-		Content: "Créer une catégorie",
+		Content: <AddCategoryForm />,
 	},
 ]
 

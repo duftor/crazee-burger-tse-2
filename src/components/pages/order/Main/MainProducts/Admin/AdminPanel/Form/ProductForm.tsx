@@ -1,5 +1,5 @@
 import { GenericForm } from "@/components/reusable-ui/GenericForm"
-import { ImagePreview } from "@/components/reusable-ui/ImagePreview"
+import { ImagePreview } from "@/components/pages/order/Main/MainProducts/Admin/AdminPanel/Form/ImagePreview"
 import { Product } from "@/types/Product"
 import { InputConfig } from "@/types/Inputs"
 
