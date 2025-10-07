@@ -1,13 +1,11 @@
 import { AiOutlinePlus } from "react-icons/ai"
 import { MdModeEditOutline } from "react-icons/md"
-//@ts-ignore
 import EditForm from "./AdminPanel/EditForm/EditForm"
-//@ts-ignore
 import HintMessage from "./AdminPanel/EditForm/HintMessage"
-//@ts-ignore
 import AddForm from "./AdminPanel/AddForm/AddForm"
 import { TabType } from "@/types/Tab"
 import { ADMIN_TAB_LABEL } from "@/constants/tab"
+import { IoPricetag } from "react-icons/io5"
 
 export const getTabsConfig = (hasAlreadyBeenClicked?: boolean): TabType[] => [
 	{
@@ -21,6 +19,12 @@ export const getTabsConfig = (hasAlreadyBeenClicked?: boolean): TabType[] => [
 		label: "Modifier un produit",
 		Icon: <MdModeEditOutline />,
 		Content: hasAlreadyBeenClicked ? <EditForm /> : <HintMessage />,
+	},
+	{
+		index: ADMIN_TAB_LABEL.ADD_CATEGORY,
+		label: "Créer une catégorie",
+		Icon: <IoPricetag />,
+		Content: "Créer une catégorie",
 	},
 ]
 
