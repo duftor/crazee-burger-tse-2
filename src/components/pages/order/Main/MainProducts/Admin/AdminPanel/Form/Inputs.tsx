@@ -20,7 +20,6 @@ export const Inputs = React.forwardRef<HTMLInputElement, InputsProps>(({ product
 	const inputTexts = getInputConfig(product, categories)
 
 	const onChangeMulti = (selectedCategories: MultiValue<Category>) => {
-		console.log("selectedCategories", selectedCategories)
 		const eventMulti = {
 			target: {
 				name: "categories",

@@ -23,6 +23,7 @@ export const MultiSelect = <Option extends BaseOptions>({
 		styles={stylesMultiSelect<Option>()}
 		noOptionsMessage={() => "Plus d'option disponible"}
 		closeMenuOnSelect={false}
+		// @ts-ignore
 		customIcon={customIcon}
 		components={{
 			Option: CustomOption,
