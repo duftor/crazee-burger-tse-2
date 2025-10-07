@@ -4,8 +4,8 @@ import HintMessage from "./AdminPanel/EditForm/HintMessage"
 import { TabType } from "@/types/Tab"
 import { ADMIN_TAB_LABEL } from "@/constants/tab"
 import { IoPricetag } from "react-icons/io5"
-import { AddProductForm } from "./AdminPanel/Form/AddProductForm"
-import { EditProductForm } from "./AdminPanel/Form/EditProductForm"
+import { AddProductForm } from "./AdminPanel/AddForm/AddProductForm"
+import { EditProductForm } from "./AdminPanel/EditForm/EditProductForm"
 
 export const getTabsConfig = (hasAlreadyBeenClicked?: boolean): TabType[] => [
 	{

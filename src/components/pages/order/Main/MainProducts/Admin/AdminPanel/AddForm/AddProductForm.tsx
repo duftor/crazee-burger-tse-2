@@ -1,11 +1,11 @@
 import { useOrderContext } from "@/context/OrderContext"
-import { getProductInputConfig } from "./productInputConfig"
+import { getProductInputConfig } from "../Form/productInputConfig"
 import { useParams } from "react-router-dom"
 import { replaceFrenchCommaWithDot } from "@/utils/maths"
 import { EMPTY_PRODUCT } from "@/constants/product"
 import { useSuccessMessage } from "@/hooks/useSuccessMessage"
-import SubmitButton from "../AddForm/SubmitButton"
-import { ProductForm } from "./ProductForm"
+import SubmitButton from "./SubmitButton"
+import { ProductForm } from "../Form/ProductForm"
 
 export function AddProductForm() {
 	const { newProduct, setNewProduct, handleAdd, categories } = useOrderContext()

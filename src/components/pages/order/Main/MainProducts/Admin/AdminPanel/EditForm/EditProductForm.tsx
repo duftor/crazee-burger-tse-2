@@ -1,11 +1,11 @@
-import { getProductInputConfig } from "./productInputConfig"
+import { getProductInputConfig } from "../Form/productInputConfig"
 import { useOrderContext } from "@/context/OrderContext"
-import SavingMessage from "../EditForm/SavingMessage"
-import EditInfoMessage from "../EditForm/EditInfoMessage"
+import SavingMessage from "./SavingMessage"
+import EditInfoMessage from "./EditInfoMessage"
 import { useSuccessMessage } from "@/hooks/useSuccessMessage"
 import { useParams } from "react-router-dom"
 import { useState } from "react"
-import { ProductForm } from "./ProductForm"
+import { ProductForm } from "../Form/ProductForm"
 
 export const EditProductForm = () => {
 	const [valueOnFocus, setValueOnFocus] = useState<string>()
