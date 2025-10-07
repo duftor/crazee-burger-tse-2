@@ -1,6 +1,3 @@
-import { GenericForm } from "@/components/reusable-ui/GenericForm"
-import { ImagePreview } from "@/components/reusable-ui/ImagePreview"
-import { Product } from "@/types/Product"
 import { getProductInputConfig } from "./productInputConfig"
 import { useOrderContext } from "@/context/OrderContext"
 import SavingMessage from "../EditForm/SavingMessage"
@@ -8,6 +5,7 @@ import EditInfoMessage from "../EditForm/EditInfoMessage"
 import { useSuccessMessage } from "@/hooks/useSuccessMessage"
 import { useParams } from "react-router-dom"
 import { useState } from "react"
+import { ProductForm } from "./ProductForm"
 
 export const EditProductForm = () => {
 	const [valueOnFocus, setValueOnFocus] = useState<string>()
@@ -24,31 +22,26 @@ export const EditProductForm = () => {
 			[name]: value,
 		}
 
-		setProductSelected(productBeingUpdated) // cette ligne update le formulaire
-		username && handleEdit(productBeingUpdated, username) // cette ligne update le menu
+		setProductSelected(productBeingUpdated)
+		username && handleEdit(productBeingUpdated, username)
 	}
 
-	const handleOnFocus = (event: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) => {
-		const valueOnFocus = event.target.value
-		setValueOnFocus(valueOnFocus)
-	}
+	const handleOnFocus = (event: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) =>
+		setValueOnFocus(event.target.value)
 
 	const handleOnBlur = (event: React.FocusEvent<HTMLInputElement | HTMLSelectElement>) => {
-		const valueOnBlur = event.target.value
-		if (valueOnFocus !== valueOnBlur) {
-			displaySuccessMessage()
-		}
+		if (valueOnFocus !== event.target.value) displaySuccessMessage()
 	}
+
 	return (
-		<GenericForm<Product>
+		<ProductForm
 			entity={productSelected}
 			inputConfig={inputConfig}
-			PreviewComponent={ImagePreview}
 			onChange={handleChange}
 			onFocus={handleOnFocus}
 			onBlur={handleOnBlur}
-			ref={titleEditRef}>
+			refInput={titleEditRef}>
 			{isSaved ? <SavingMessage /> : <EditInfoMessage />}
-		</GenericForm>
+		</ProductForm>
 	)
 }
