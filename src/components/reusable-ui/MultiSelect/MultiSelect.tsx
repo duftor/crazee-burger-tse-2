@@ -46,8 +46,6 @@ const CustomValueContainer = <Option extends BaseOptions>({
 	const selectProps = props.selectProps as MultiSelectProps<Option>
 	const IconToDisplay = selectProps.customIcon
 
-	console.log("props", selectProps.customIcon)
-
 	return (
 		<components.ValueContainer {...props}>
 			{IconToDisplay && (

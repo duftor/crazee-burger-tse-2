@@ -32,7 +32,6 @@ export const GenericForm = forwardRef<HTMLInputElement, GenericFormProps<unknown
 			<FormStyled onSubmit={onSubmit}>
 				<PreviewComponent entity={entity} />
 				<GenericInputs
-					entity={entity}
 					inputConfig={inputConfig}
 					onChange={onChange}
 					onFocus={onFocus}

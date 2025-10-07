@@ -7,16 +7,12 @@ import TextInput from "./TextInput"
 import SelectInput from "./SelectInput"
 import { MultiSelect } from "./MultiSelect/MultiSelect"
 
-type GenericInputsProps<Entity> = FormEvents & {
-	entity: Entity
+type GenericInputsProps = FormEvents & {
 	inputConfig: InputConfig[][]
 }
 
 export const GenericInputs = forwardRef(
-	<Entity,>(
-		{ entity, inputConfig, onChange, onFocus, onBlur }: GenericInputsProps<Entity>,
-		ref: React.Ref<HTMLInputElement>
-	) => {
+	<Entity,>({ inputConfig, onChange, onFocus, onBlur }: GenericInputsProps, ref: React.Ref<HTMLInputElement>) => {
 		const onChangeMulti = (name: string, value: MultiValue<Entity>) => {
 			const eventMulti = {
 				target: { name, value },
@@ -75,7 +71,7 @@ export const GenericInputs = forwardRef(
 			</InputsStyled>
 		)
 	}
-) as <Entity>(props: GenericInputsProps<Entity> & { ref?: React.Ref<HTMLInputElement> }) => JSX.Element
+) as (props: GenericInputsProps & { ref?: React.Ref<HTMLInputElement> }) => JSX.Element
 
 const InputsStyled = styled.div`
 	grid-area: 1 / 2 / -2 / 3;
