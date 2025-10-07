@@ -52,7 +52,7 @@ const OrderContext = createContext<OrderContextType | undefined>(undefined) // p
 export const OrderContextProvider = ({ children }: PropsWithChildren) => {
 	const [isModeAdmin, setIsModeAdmin] = useState(false)
 	const [isCollapsed, setIsCollapsed] = useState(false)
-	const [currentTabSelected, setCurrentTabSelected] = useState<ADMIN_TAB_LABEL>(ADMIN_TAB_LABEL.ADD)
+	const [currentTabSelected, setCurrentTabSelected] = useState<ADMIN_TAB_LABEL>(ADMIN_TAB_LABEL.ADD_PRODUCT)
 	const [newProduct, setNewProduct] = useState(EMPTY_PRODUCT)
 	const [productSelected, setProductSelected] = useState<Product>(EMPTY_PRODUCT)
 	const titleEditRef = useRef<HTMLInputElement>(null)
@@ -75,7 +75,7 @@ export const OrderContextProvider = ({ children }: PropsWithChildren) => {
 		const productClickedOn = findObjectById(idProductClicked, menu)
 		if (!productClickedOn) return
 		await setIsCollapsed(false)
-		await setCurrentTabSelected(ADMIN_TAB_LABEL.EDIT)
+		await setCurrentTabSelected(ADMIN_TAB_LABEL.EDIT_PRODUCT)
 		await setProductSelected(productClickedOn)
 		// titleEditRef.current && titleEditRef.current.focus() // ériture équivalente
 		titleEditRef.current?.focus()

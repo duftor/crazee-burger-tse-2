@@ -10,20 +10,20 @@ import { TabType } from "@/types/Tab"
 import { ADMIN_TAB_LABEL } from "@/constants/tab"
 
 export const getTabsConfig = (hasAlreadyBeenClicked?: boolean): TabType[] => [
-  {
-    index: ADMIN_TAB_LABEL.ADD,
-    label: "Ajouter un produit",
-    Icon: <AiOutlinePlus />,
-    Content: <AddForm />,
-  },
-  {
-    index: ADMIN_TAB_LABEL.EDIT,
-    label: "Modifier un produit",
-    Icon: <MdModeEditOutline />,
-    Content: hasAlreadyBeenClicked ? <EditForm /> : <HintMessage />,
-  },
+	{
+		index: ADMIN_TAB_LABEL.ADD_PRODUCT,
+		label: "Ajouter un produit",
+		Icon: <AiOutlinePlus />,
+		Content: <AddForm />,
+	},
+	{
+		index: ADMIN_TAB_LABEL.EDIT_PRODUCT,
+		label: "Modifier un produit",
+		Icon: <MdModeEditOutline />,
+		Content: hasAlreadyBeenClicked ? <EditForm /> : <HintMessage />,
+	},
 ]
 
 export const getTabSelected = (tabs: TabType[], currentTabSelected: ADMIN_TAB_LABEL) => {
-  return tabs.find((tab) => tab.index === currentTabSelected)
+	return tabs.find((tab) => tab.index === currentTabSelected)
 }
