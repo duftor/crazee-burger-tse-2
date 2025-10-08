@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom"
 import { CategoryPreview } from "../Form/CategoryPreview"
 import { getCategoryInputConfig } from "../Form/CategoryInputConfig"
 import * as z from "zod"
+import { useToast } from "@/hooks/useToast"
 
 const LABEL_MIN_LENGTH = 2
 const LABEL_MAX_LENGTH = 20
@@ -34,6 +35,7 @@ export const AddCategoryForm = () => {
 	const { isSubmitted, displaySuccessMessage } = useSuccessMessage()
 	const { username } = useParams()
 	const inputConfig = getCategoryInputConfig(newCategory)
+	const { displayToastNotification } = useToast()
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
 		const { name, value } = e.target
@@ -47,7 +49,7 @@ export const AddCategoryForm = () => {
 		const result = categorySchema.safeParse(newCategory)
 
 		if (!result.success) {
-			console.log(result.error.issues[0]?.message ?? "Erreur inconnue")
+			displayToastNotification(result.error.issues[0]?.message ?? "Nom de catégorie incorrect", "error")
 			return
 		}
 
