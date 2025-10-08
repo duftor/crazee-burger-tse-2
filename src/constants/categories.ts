@@ -1,6 +1,5 @@
 import { theme } from "@/theme/theme"
 import { Category } from "@/types/Category"
-import { colorOptions, iconOptions } from "./select"
 
 export const CATEGORY_ALL: Category = {
 	id: "id-category-all",
@@ -23,8 +22,8 @@ export const DEFAULT_CATEGORY: Category = {
 export const EMPTY_CATEGORY: Category = {
 	id: "",
 	label: "",
-	color: colorOptions[0].optionValue,
-	iconName: iconOptions[0].optionValue,
+	color: "",
+	iconName: "",
 	value: "",
 }
 

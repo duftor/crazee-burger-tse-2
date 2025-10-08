@@ -13,11 +13,12 @@ export const isPublicisedOptions: Option[] = [
 ]
 
 type ColorOption = {
-	optionValue: CategoryColor
+	optionValue: CategoryColor | ""
 	label: string
 }
 
 export const colorOptions: ColorOption[] = [
+	{ optionValue: "", label: "Sélectionner une couleur" },
 	{ optionValue: categoryColors.orange, label: "Orange" },
 	{ optionValue: categoryColors.blue, label: "Bleu" },
 	{ optionValue: categoryColors.green, label: "Vert" },
@@ -27,11 +28,12 @@ export const colorOptions: ColorOption[] = [
 ]
 
 type IconOption = {
-	optionValue: IconName
+	optionValue: IconName | ""
 	label: string
 }
 
 export const iconOptions: IconOption[] = [
+	{ optionValue: "", label: "Sélectionner une icône" },
 	{ optionValue: "sandwich", label: "Sandwich" },
 	{ optionValue: "verre", label: "Verre" },
 	{ optionValue: "veggies", label: "Veggies" },
