@@ -11,7 +11,7 @@ import { MdOutlineEuro } from "react-icons/md"
 
 type GetInputConfigType = (newProduct: Product, categories: Category[]) => InputConfig[][]
 
-export const getInputConfig: GetInputConfigType = (newProduct, categories) => [
+export const getProductInputConfig: GetInputConfigType = (newProduct, categories) => [
 	[
 		{
 			id: "1",
@@ -21,7 +21,6 @@ export const getInputConfig: GetInputConfigType = (newProduct, categories) => [
 			placeholder: "Nom du produit (ex: Super Burger)",
 			Icon: <FaHamburger />,
 			version: "minimalist",
-			// className: "title",
 		},
 		{
 			id: "2",
@@ -31,7 +30,6 @@ export const getInputConfig: GetInputConfigType = (newProduct, categories) => [
 			placeholder: "Lien URL d'une image (ex: https://la-photo-de-mon-produit.png)",
 			Icon: <BsFillCameraFill />,
 			version: "minimalist",
-			// className: "image-source",
 		},
 	],
 	[
@@ -42,6 +40,7 @@ export const getInputConfig: GetInputConfigType = (newProduct, categories) => [
 			options: categories,
 			value: newProduct.categories,
 			customIcon: IoPricetag,
+			placeholder: "Catégorie (ex: Boisson)",
 		},
 	],
 	[
@@ -53,7 +52,6 @@ export const getInputConfig: GetInputConfigType = (newProduct, categories) => [
 			placeholder: "Prix",
 			Icon: <MdOutlineEuro />,
 			version: "minimalist",
-			// className: "price",
 		},
 		{
 			id: "5",
@@ -62,7 +60,6 @@ export const getInputConfig: GetInputConfigType = (newProduct, categories) => [
 			value: newProduct.isAvailable.toString(),
 			options: isAvailableOptions,
 			Icon: <FiPackage />,
-			// className: "is-available",
 		},
 		{
 			id: "6",
@@ -71,7 +68,6 @@ export const getInputConfig: GetInputConfigType = (newProduct, categories) => [
 			value: newProduct.isPublicised.toString(),
 			options: isPublicisedOptions,
 			Icon: <GoMegaphone />,
-			// className: "is-publicised",
 		},
 	],
 ]

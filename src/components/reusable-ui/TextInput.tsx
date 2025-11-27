@@ -20,12 +20,12 @@ type TextInputProps = {
 } & ComponentPropsWithRef<"input">
 
 const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
-	({ onChange, Icon, className, version = "normal", error, ...extraProps }, ref) => {
+	({ onChange, Icon, className, version = "normal", autoFocus, error, ...extraProps }, ref) => {
 		return (
 			<TextInputStyled className={className} version={version} hasError={!!error}>
 				<div className="input-wrapper">
 					<div className="icon">{Icon && Icon}</div>
-					<input ref={ref} onChange={onChange} type="text" {...extraProps} />
+					<input ref={ref} onChange={onChange} autoFocus={autoFocus} type="text" {...extraProps} />
 				</div>
 				{error && <ErrorMessage error={error} />}
 			</TextInputStyled>

@@ -23,8 +23,18 @@ const colors = {
 	grey: "#cccccc",
 } as const
 
+export const categoryColors = {
+	orange: "#D9730D",
+	blue: "#487CA5",
+	green: "#548164",
+	pink: "#B35488",
+	yellow: "#C29343",
+	red: "#C4554D",
+} as const
+export type CategoryColor = (typeof categoryColors)[keyof typeof categoryColors]
+
 type Colors = typeof colors
-export type Color = Colors[keyof Colors] | ""
+export type Color = Colors[keyof Colors] | "" | CategoryColor
 
 const spacing = {
 	xxs: "4px",

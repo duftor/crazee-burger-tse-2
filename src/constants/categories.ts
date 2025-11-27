@@ -22,7 +22,7 @@ export const DEFAULT_CATEGORY: Category = {
 export const EMPTY_CATEGORY: Category = {
 	id: "",
 	label: "",
-	color: theme.colors.red,
+	color: "",
 	iconName: "",
 	value: "",
 }

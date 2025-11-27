@@ -8,6 +8,7 @@ import { ADMIN_TAB_LABEL } from "@/constants/tab"
 import { useShortcutsOverlay } from "@/hooks/useShortcutsOverlay"
 import { useCategories } from "@/hooks/useCategories"
 import { Category } from "@/types/Category"
+import { EMPTY_CATEGORY } from "@/constants/categories"
 
 type OrderContextType = {
 	isModeAdmin: boolean
@@ -43,6 +44,8 @@ type OrderContextType = {
 	toggleAllCategories: () => void
 	toggleMenusCategory: () => void
 	categoryMenus: Category
+	newCategory: Category
+	setNewCategory: React.Dispatch<React.SetStateAction<Category>>
 }
 
 // 1. Création du context
@@ -52,9 +55,10 @@ const OrderContext = createContext<OrderContextType | undefined>(undefined) // p
 export const OrderContextProvider = ({ children }: PropsWithChildren) => {
 	const [isModeAdmin, setIsModeAdmin] = useState(false)
 	const [isCollapsed, setIsCollapsed] = useState(false)
-	const [currentTabSelected, setCurrentTabSelected] = useState<ADMIN_TAB_LABEL>(ADMIN_TAB_LABEL.ADD)
+	const [currentTabSelected, setCurrentTabSelected] = useState<ADMIN_TAB_LABEL>(ADMIN_TAB_LABEL.ADD_PRODUCT)
 	const [newProduct, setNewProduct] = useState(EMPTY_PRODUCT)
 	const [productSelected, setProductSelected] = useState<Product>(EMPTY_PRODUCT)
+	const [newCategory, setNewCategory] = useState<Category>(EMPTY_CATEGORY)
 	const titleEditRef = useRef<HTMLInputElement>(null)
 	const { menu, setMenu, handleAdd, handleDelete, handleEdit, resetMenu } = useMenu()
 	const { basket, setBasket, handleAddToBasket, handleDeleteBasketProduct } = useBasket()
@@ -75,7 +79,7 @@ export const OrderContextProvider = ({ children }: PropsWithChildren) => {
 		const productClickedOn = findObjectById(idProductClicked, menu)
 		if (!productClickedOn) return
 		await setIsCollapsed(false)
-		await setCurrentTabSelected(ADMIN_TAB_LABEL.EDIT)
+		await setCurrentTabSelected(ADMIN_TAB_LABEL.EDIT_PRODUCT)
 		await setProductSelected(productClickedOn)
 		// titleEditRef.current && titleEditRef.current.focus() // ériture équivalente
 		titleEditRef.current?.focus()
@@ -115,6 +119,8 @@ export const OrderContextProvider = ({ children }: PropsWithChildren) => {
 		toggleAllCategories,
 		toggleMenusCategory,
 		categoryMenus,
+		newCategory,
+		setNewCategory,
 	}
 
 	return <OrderContext.Provider value={orderContextValue}>{children}</OrderContext.Provider>
