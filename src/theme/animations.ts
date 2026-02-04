@@ -53,80 +53,108 @@ export const fadeInFromBottom = keyframes`
 `
 
 export const adminAnimation = css`
-  .admin-appear {
-    opacity: 0.1;
-    transform: translateY(100%);
-    &.admin-appear-active {
-      opacity: 1;
-      transform: translateY(0);
-      transition: all 500ms;
-    }
-  }
+	.admin-appear {
+		opacity: 0.1;
+		transform: translateY(100%);
+		&.admin-appear-active {
+			opacity: 1;
+			transform: translateY(0);
+			transition: all 500ms;
+		}
+	}
 `
 
 export const basketAnimation = css`
-  .animation-basket-appear {
-    .card {
-      transform: translateX(100px);
-      opacity: 0%;
-    }
-  }
-  .animation-basket-appear-active {
-    .card {
-      transition: ${theme.animations.speed.quick};
-      transform: translateX(0px);
-      opacity: 100%;
-    }
-  }
+	.animation-basket-appear {
+		.card {
+			transform: translateX(100px);
+			opacity: 0%;
+		}
+	}
+	.animation-basket-appear-active {
+		.card {
+			transition: ${theme.animations.speed.quick};
+			transform: translateX(0px);
+			opacity: 100%;
+		}
+	}
 
-  .animation-basket-enter {
-    .card {
-      transform: translateX(100px);
-      opacity: 0%;
-    }
-  }
-  .animation-basket-enter-active {
-    .card {
-      transition: ${theme.animations.speed.quick};
-      transform: translateX(0px);
-      opacity: 100%;
-    }
-  }
+	.animation-basket-enter {
+		.card {
+			transform: translateX(100px);
+			opacity: 0%;
+		}
+	}
+	.animation-basket-enter-active {
+		.card {
+			transition: ${theme.animations.speed.quick};
+			transform: translateX(0px);
+			opacity: 100%;
+		}
+	}
 
-  .animation-basket-exit {
-    .card {
-      transform: translateX(0px);
-      opacity: 100%;
-    }
-  }
-  .animation-basket-exit-active {
-    .card {
-      transform: translateX(-100px);
-      opacity: 0%;
-      transition: ${theme.animations.speed.quick};
-    }
-  }
+	.animation-basket-exit {
+		.card {
+			transform: translateX(0px);
+			opacity: 100%;
+		}
+	}
+	.animation-basket-exit-active {
+		.card {
+			transform: translateX(-100px);
+			opacity: 0%;
+			transition: ${theme.animations.speed.quick};
+		}
+	}
 `
 
 export const menuAnimation = css`
-  /* MOUNTING */
-  .menu-animation-enter {
-    opacity: 0.01;
-    transform: translateX(-120px);
-    &.menu-animation-enter-active {
-      opacity: 1;
-      transform: translateX(0);
-      transition: all ${theme.animations.speed.quick} ease-out;
-    }
-  }
+	/* MOUNTING */
+	.menu-animation-enter {
+		opacity: 0.01;
+		transform: translateX(-120px);
+		&.menu-animation-enter-active {
+			opacity: 1;
+			transform: translateX(0);
+			transition: all ${theme.animations.speed.quick} ease-out;
+		}
+	}
 
-  /* UNMOUNTING */
-  .menu-animation-exit {
+	/* UNMOUNTING */
+	.menu-animation-exit {
+		opacity: 1;
+		transform: translateY(0);
+		&.menu-animation-exit-active {
+			opacity: 0.01;
+			transition: ${theme.animations.speed.quick} ease-out;
+		}
+	}
+`
+
+export const spin = keyframes`
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+`
+
+export const chipAnimation = keyframes`
+  0% {
+    /* z-index: 1; */
+    opacity: 0;
+    transform: translateY(-20%);
+  }
+  
+  100% {
     opacity: 1;
     transform: translateY(0);
-    &.menu-animation-exit-active {
-      opacity: 0.01;
-      transition: ${theme.animations.speed.quick} ease-out;
-    }
+  }
+`
+
+export const badgeAnimation = keyframes`
+  0% {
+    opacity: 0;
+  }
+  
+  100% {
+    opacity: 1;
   }
 `
